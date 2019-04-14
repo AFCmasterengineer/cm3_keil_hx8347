@@ -1,0 +1,12 @@
+.\objects\common.o: ..\apmain\common.c
+.\objects\common.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\common.o: ..\v2m_mps2\SMM_MPS2.h
+.\objects\common.o: ..\cmsis\Device\Include\peripherallink.h
+.\objects\common.o: ..\cmsis\Device\Include\CMSDK_CM3\CMSDK_CM3.h
+.\objects\common.o: ..\cmsis\CMSIS\Include\core_cm3.h
+.\objects\common.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\common.o: ..\cmsis\CMSIS\Include\core_cmInstr.h
+.\objects\common.o: ..\cmsis\CMSIS\Include\core_cmFunc.h
+.\objects\common.o: ..\cmsis\Device\Include\CMSDK_CM3\system_CMSDK_CM3.h
+.\objects\common.o: ..\apmain\common.h
+.\objects\common.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h

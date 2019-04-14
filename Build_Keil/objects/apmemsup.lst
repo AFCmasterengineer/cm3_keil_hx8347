@@ -1,0 +1,145 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ;
+    2 00000000         ; Copyright: 
+    3 00000000         ; ------------------------------------------------------
+                       ----------
+    4 00000000         ; This confidential and proprietary software may be used
+                        only as
+    5 00000000         ; authorised by a licensing agreement from ARM Limited
+    6 00000000         ;   (C) COPYRIGHT 2014 ARM Limited
+    7 00000000         ;       ALL RIGHTS RESERVED
+    8 00000000         ; The entire notice above must be reproduced on all auth
+                       orised
+    9 00000000         ; copies and copies may only be made to the extent permi
+                       tted
+   10 00000000         ; by a licensing agreement from ARM Limited.
+   11 00000000         ; ------------------------------------------------------
+                       ----------
+   12 00000000         ; File:     apusb.c
+   13 00000000         ; Release:  Version 2.0
+   14 00000000         ; ------------------------------------------------------
+                       ----------
+   15 00000000         ; 
+   16 00000000         
+   17 00000000                 AREA             MemoryTest, CODE, READONLY
+   18 00000000         
+   19 00000000                 EXPORT           get_stack_ptr
+   20 00000000                 EXPORT           memcpy_LDM_STM
+   21 00000000         
+   22 00000000         get_stack_ptr                        ; r0 points to arg1
+                                                            
+   23 00000000         
+   24 00000000 4669            MOV              r1, sp      ; read stack pointe
+                                                            r
+   25 00000002 6001            STR              r1, [r0]    ; store it into arg
+                                                            1
+   26 00000004         
+   27 00000004 4770            BX               lr          ; return
+   28 00000006         
+   29 00000006         
+   30 00000006         
+   31 00000006         
+   32 00000006         memcpy_LDM_STM                       ; r0 = to, r1 = fro
+                                                            m, r2 = size
+   33 00000006 B4F0            PUSH             {r4-r7}     ; Store 4 registers
+                                                             onto stack
+   34 00000008         
+   35 00000008 2A08            CMP              r2,#8       ; Always size 8 LDM
+                                                            ,
+   36 0000000A D105            BNE              fail        ; Check just in cas
+                                                            e accidentally modi
+                                                            fied.
+   37 0000000C         
+   38 0000000C C9F0            LDMIA            r1!,{r4-r7} ; Load from memory 
+                                                            4 words
+   39 0000000E C0F0            STMIA            r0!,{r4-r7} ; Store to temporar
+                                                            y array
+   40 00000010 C9F0            LDMIA            r1!,{r4-r7} ; Load from memory 
+                                                            4 words
+   41 00000012 C0F0            STMIA            r0!,{r4-r7} ; Store to temporar
+                                                            y array
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+   42 00000014         
+   43 00000014         success
+   44 00000014 2000            MOVS             r0, #0
+   45 00000016 E000            B                return
+   46 00000018         
+   47 00000018         fail
+   48 00000018 2001            MOVS             r0, #1
+   49 0000001A         
+   50 0000001A         return
+   51 0000001A BCF0            POP              {r4-r7}     ; Load 4 registers 
+                                                            from stack
+   52 0000001C 4770            BX               lr
+   53 0000001E         
+   54 0000001E                 END
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
+ork --depend=.\objects\apmemsup.d -o.\objects\apmemsup.o -ID:\Keil_v5\ARM\RV31\
+INC -ID:\Keil_v5\ARM\CMSIS\Include --predefine="__UVISION_VERSION SETA 516" --l
+ist=.\objects\apmemsup.lst ..\apmem\apmemsup.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+MemoryTest 00000000
+
+Symbol: MemoryTest
+   Definitions
+      At line 17 in file ..\apmem\apmemsup.s
+   Uses
+      None
+Comment: MemoryTest unused
+fail 00000018
+
+Symbol: fail
+   Definitions
+      At line 47 in file ..\apmem\apmemsup.s
+   Uses
+      At line 36 in file ..\apmem\apmemsup.s
+Comment: fail used once
+get_stack_ptr 00000000
+
+Symbol: get_stack_ptr
+   Definitions
+      At line 22 in file ..\apmem\apmemsup.s
+   Uses
+      At line 19 in file ..\apmem\apmemsup.s
+Comment: get_stack_ptr used once
+memcpy_LDM_STM 00000006
+
+Symbol: memcpy_LDM_STM
+   Definitions
+      At line 32 in file ..\apmem\apmemsup.s
+   Uses
+      At line 20 in file ..\apmem\apmemsup.s
+Comment: memcpy_LDM_STM used once
+return 0000001A
+
+Symbol: return
+   Definitions
+      At line 50 in file ..\apmem\apmemsup.s
+   Uses
+      At line 45 in file ..\apmem\apmemsup.s
+Comment: return used once
+success 00000014
+
+Symbol: success
+   Definitions
+      At line 43 in file ..\apmem\apmemsup.s
+   Uses
+      None
+Comment: success unused
+6 symbols
+337 symbols in table

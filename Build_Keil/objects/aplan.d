@@ -1,0 +1,15 @@
+.\objects\aplan.o: ..\aplan\aplan.c
+.\objects\aplan.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\aplan.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\objects\aplan.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\objects\aplan.o: ..\v2m_mps2\ETH_MPS2.h
+.\objects\aplan.o: ..\v2m_mps2\SMM_MPS2.h
+.\objects\aplan.o: ..\cmsis\Device\Include\peripherallink.h
+.\objects\aplan.o: ..\cmsis\Device\Include\CMSDK_CM3\CMSDK_CM3.h
+.\objects\aplan.o: ..\cmsis\CMSIS\Include\core_cm3.h
+.\objects\aplan.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\aplan.o: ..\cmsis\CMSIS\Include\core_cmInstr.h
+.\objects\aplan.o: ..\cmsis\CMSIS\Include\core_cmFunc.h
+.\objects\aplan.o: ..\cmsis\Device\Include\CMSDK_CM3\system_CMSDK_CM3.h
+.\objects\aplan.o: ..\aplan\aplan.h
+.\objects\aplan.o: ..\apmain\common.h
