@@ -107,7 +107,7 @@ static __inline unsigned char spi_tran (unsigned char byte) {
 
 static __inline void wr_cmd (unsigned char cmd) {
   LCD_CS(0);
-	gpio_m3_out(CMSDK_GPIO0,1,0);
+
   spi_tran(SPI_START | SPI_WR | SPI_INDEX);   /* Write : RS = 0, RW = 0       */
   spi_tran(0);
   spi_tran(cmd);
@@ -123,7 +123,7 @@ static __inline void wr_cmd (unsigned char cmd) {
 
 static __inline void wr_dat (unsigned short dat) {
   LCD_CS(0);
-	gpio_m3_out(CMSDK_GPIO0,1,1);
+
   spi_tran(SPI_START | SPI_WR | SPI_DATA);    /* Write : RS = 1, RW = 0       */
   spi_tran((dat >>   8));                     /* Write D8..D15                */
   spi_tran((dat & 0xFF));                     /* Write D0..D7                 */

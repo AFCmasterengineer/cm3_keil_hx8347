@@ -31,6 +31,8 @@
 #define  SPI_CLK_period      1000  //us  
 #define  SPI_CLK_DELAY()     Sleepus(SPI_CLK_period/2);//Sleepmus()   half of the CLK period
 
+#define  LCD_SPI	MPS2_SSP3	
+
 
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/

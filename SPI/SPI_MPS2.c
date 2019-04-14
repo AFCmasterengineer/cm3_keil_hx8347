@@ -24,6 +24,9 @@
 #include "LIB_Config.h"
 #include "SPI.h"
 
+
+#include "SMM_MPS2.h"
+
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
@@ -44,53 +47,12 @@ uint8_t spi_read_write_byte( uint8_t chByte);
 uint8_t spi_read_write_byte( uint8_t chByte)
 {		
 
-	uint8_t i=0;
-	uint8_t SDO_buffer = 0x00;
 	
-	__LCD_CLK_CLR()
-	/* Wait until the transmit buffer is empty */
-	for (i=0;i<=7;i++)
-	{
-		if(chByte&0x01)
-		{
-			__LCD_SDI_SET()
-		}else
-		{
-			__LCD_SDI_CLR()
-		}
-		SPI_CLK_DELAY()
+	  LCD_SPI->DR = chByte;
+	
+    while (LCD_SPI->SR & SSP_SR_BSY_Msk);  /* Wait for send to finish      */
+  return (LCD_SPI->DR);
 		
-		if (gpio_m3_in(LCD_SDO_GPIO,LCD_SDO_PIN)&0x01)
-			{
-					SDO_buffer = SDO_buffer|(1<<(7-i));  //high bit first   read from MISO
-			}
-	
-		__LCD_CLK_SET()//posedge to shift
-		
-		SPI_CLK_DELAY()
-		
-		
-	}
-	
-	/* Send the byte */
-
-
-	
-	
-	
-	/* Return the byte read from the SPI bus */ 
-
-
-//	/* Wait until the transmit buffer is empty */ 
-//	while(SPI_I2S_GetFlagStatus(tSPIx, SPI_I2S_FLAG_TXE) != SET)
-//	{
-//	} 
-//	/* wait until the completion of the transfer */
-//	while(SPI_I2S_GetFlagStatus(tSPIx, SPI_I2S_FLAG_BSY) != RESET)
-//	{
-//	} 
-	
-	return SDO_buffer;
 }
 
 /**
