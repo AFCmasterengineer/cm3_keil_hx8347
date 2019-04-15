@@ -186,7 +186,7 @@ I (D:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x55AEF5F2)
 I (..\cmsis\CMSIS\Include\core_cmInstr.h)(0x596DED2B)
 I (..\cmsis\CMSIS\Include\core_cmFunc.h)(0x596DED2B)
 I (..\cmsis\Device\Include\CMSDK_CM3\system_CMSDK_CM3.h)(0x596DED2A)
-F (..\v2m_mps2\GLCD_SPI_MPS2.c)(0x5CB1CD83)(-c --cpu Cortex-M3 --li -g -O0 --apcs=interwork -I..\cmsis\CMSIS\Include -I..\cmsis\Device\Include -I..\v2m_mps2 -I..\apmain -I..\cmsis\Device\Include\CMSDK_CM3 -I.\OV5640 -I..\LIB_Config -I..\LCD -I..\SPI -I..\Fonts-I D:\Keil_v5\ARM\RV31\INC-I D:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="516" -DCORTEX_M3 -DFPGA_IMAGE -DCMSDK_CM3-o .\objects\glcd_spi_mps2.o --omf_browse .\objects\glcd_spi_mps2.crf --depend .\objects\glcd_spi_mps2.d)
+F (..\v2m_mps2\GLCD_SPI_MPS2.c)(0x5CB2F0F5)(-c --cpu Cortex-M3 --li -g -O0 --apcs=interwork -I..\cmsis\CMSIS\Include -I..\cmsis\Device\Include -I..\v2m_mps2 -I..\apmain -I..\cmsis\Device\Include\CMSDK_CM3 -I.\OV5640 -I..\LIB_Config -I..\LCD -I..\SPI -I..\Fonts-I D:\Keil_v5\ARM\RV31\INC-I D:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="516" -DCORTEX_M3 -DFPGA_IMAGE -DCMSDK_CM3-o .\objects\glcd_spi_mps2.o --omf_browse .\objects\glcd_spi_mps2.crf --depend .\objects\glcd_spi_mps2.d)
 I (..\v2m_mps2\SMM_MPS2.h)(0x596DED27)
 I (..\cmsis\Device\Include\peripherallink.h)(0x596DED29)
 I (..\cmsis\Device\Include\CMSDK_CM3\CMSDK_CM3.h)(0x596DED2A)
@@ -274,13 +274,38 @@ I (..\cmsis\CMSIS\Include\core_cmInstr.h)(0x596DED2B)
 I (..\cmsis\CMSIS\Include\core_cmFunc.h)(0x596DED2B)
 I (..\cmsis\Device\Include\CMSDK_CM3\system_CMSDK_CM3.h)(0x596DED2A)
 F (.\OV5640\gpio_m3.h)(0x5CB1AB01)()
+F (.\OV5640\ov5640.c)(0x5CB1AAD4)(-c --cpu Cortex-M3 --li -g -O0 --apcs=interwork -I..\cmsis\CMSIS\Include -I..\cmsis\Device\Include -I..\v2m_mps2 -I..\apmain -I..\cmsis\Device\Include\CMSDK_CM3 -I.\OV5640 -I..\LIB_Config -I..\LCD -I..\SPI -I..\Fonts-I D:\Keil_v5\ARM\RV31\INC-I D:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="516" -DCORTEX_M3 -DFPGA_IMAGE -DCMSDK_CM3-o .\objects\ov5640.o --omf_browse .\objects\ov5640.crf --depend .\objects\ov5640.d)
+I (OV5640\ov5640.h)(0x5CB1AAEF)
+I (OV5640\gpio_m3.h)(0x5CB1AB01)
+I (..\cmsis\Device\Include\CMSDK_driver.h)(0x5CB1970A)
+I (D:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x55AEF5F2)
+I (..\cmsis\Device\Include\peripherallink.h)(0x596DED29)
+I (..\cmsis\Device\Include\CMSDK_CM3\CMSDK_CM3.h)(0x596DED2A)
+I (..\cmsis\CMSIS\Include\core_cm3.h)(0x596DED2B)
+I (..\cmsis\CMSIS\Include\core_cmInstr.h)(0x596DED2B)
+I (..\cmsis\CMSIS\Include\core_cmFunc.h)(0x596DED2B)
+I (..\cmsis\Device\Include\CMSDK_CM3\system_CMSDK_CM3.h)(0x596DED2A)
+I (OV5640\ov5640cfg.h)(0x5CB1AAEA)
+I (OV5640\ov5640af.h)(0x5CB1AAF7)
+I (OV5640\sccb.h)(0x5CB1AADC)
+F (.\OV5640\sccb.c)(0x5CB1AADA)(-c --cpu Cortex-M3 --li -g -O0 --apcs=interwork -I..\cmsis\CMSIS\Include -I..\cmsis\Device\Include -I..\v2m_mps2 -I..\apmain -I..\cmsis\Device\Include\CMSDK_CM3 -I.\OV5640 -I..\LIB_Config -I..\LCD -I..\SPI -I..\Fonts-I D:\Keil_v5\ARM\RV31\INC-I D:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="516" -DCORTEX_M3 -DFPGA_IMAGE -DCMSDK_CM3-o .\objects\sccb.o --omf_browse .\objects\sccb.crf --depend .\objects\sccb.d)
+I (OV5640\sccb.h)(0x5CB1AADC)
+I (..\cmsis\Device\Include\CMSDK_CM3\CMSDK_CM3.h)(0x596DED2A)
+I (..\cmsis\CMSIS\Include\core_cm3.h)(0x596DED2B)
+I (D:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x55AEF5F2)
+I (..\cmsis\CMSIS\Include\core_cmInstr.h)(0x596DED2B)
+I (..\cmsis\CMSIS\Include\core_cmFunc.h)(0x596DED2B)
+I (..\cmsis\Device\Include\CMSDK_CM3\system_CMSDK_CM3.h)(0x596DED2A)
+I (OV5640\gpio_m3.h)(0x5CB1AB01)
+I (..\cmsis\Device\Include\CMSDK_driver.h)(0x5CB1970A)
+I (..\cmsis\Device\Include\peripherallink.h)(0x596DED29)
 F (..\LCD\LCD.c)(0x5CB2A9BC)(-c --cpu Cortex-M3 --li -g -O0 --apcs=interwork -I..\cmsis\CMSIS\Include -I..\cmsis\Device\Include -I..\v2m_mps2 -I..\apmain -I..\cmsis\Device\Include\CMSDK_CM3 -I.\OV5640 -I..\LIB_Config -I..\LCD -I..\SPI -I..\Fonts-I D:\Keil_v5\ARM\RV31\INC-I D:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="516" -DCORTEX_M3 -DFPGA_IMAGE -DCMSDK_CM3-o .\objects\lcd.o --omf_browse .\objects\lcd.crf --depend .\objects\lcd.d)
 I (..\LIB_Config\LIB_Config.h)(0x5CB2A9E8)
 I (..\LIB_Config\MacroAndConst.h)(0x54B798EE)
 I (D:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x55AEF5F2)
 I (D:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x55AEF5F2)
 I (D:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x55AEF5F2)
-I (..\SPI\SPI.h)(0x5CB2A9E4)
+I (..\SPI\SPI.h)(0x5CB2F20C)
 I (..\v2m_mps2\SMM_MPS2.h)(0x596DED27)
 I (..\cmsis\Device\Include\peripherallink.h)(0x596DED29)
 I (..\cmsis\Device\Include\CMSDK_CM3\CMSDK_CM3.h)(0x596DED2A)
@@ -294,13 +319,13 @@ I (D:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x55AEF5F2)
 I (..\Fonts\Fonts.h)(0x54F515FF)
 I (.\OV5640\gpio_m3.h)(0x5CB1AB01)
 I (..\cmsis\Device\Include\CMSDK_driver.h)(0x5CB1970A)
-F (..\SPI\SPI.c)(0x5CB2ABB5)(-c --cpu Cortex-M3 --li -g -O0 --apcs=interwork -I..\cmsis\CMSIS\Include -I..\cmsis\Device\Include -I..\v2m_mps2 -I..\apmain -I..\cmsis\Device\Include\CMSDK_CM3 -I.\OV5640 -I..\LIB_Config -I..\LCD -I..\SPI -I..\Fonts-I D:\Keil_v5\ARM\RV31\INC-I D:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="516" -DCORTEX_M3 -DFPGA_IMAGE -DCMSDK_CM3-o .\objects\spi.o --omf_browse .\objects\spi.crf --depend .\objects\spi.d)
+F (..\SPI\SPI_MPS2.c)(0x5CB2F245)(-c --cpu Cortex-M3 --li -g -O0 --apcs=interwork -I..\cmsis\CMSIS\Include -I..\cmsis\Device\Include -I..\v2m_mps2 -I..\apmain -I..\cmsis\Device\Include\CMSDK_CM3 -I.\OV5640 -I..\LIB_Config -I..\LCD -I..\SPI -I..\Fonts-I D:\Keil_v5\ARM\RV31\INC-I D:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="516" -DCORTEX_M3 -DFPGA_IMAGE -DCMSDK_CM3-o .\objects\spi_mps2.o --omf_browse .\objects\spi_mps2.crf --depend .\objects\spi_mps2.d)
 I (..\LIB_Config\LIB_Config.h)(0x5CB2A9E8)
 I (..\LIB_Config\MacroAndConst.h)(0x54B798EE)
 I (D:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x55AEF5F2)
 I (D:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x55AEF5F2)
 I (D:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x55AEF5F2)
-I (..\SPI\SPI.h)(0x5CB2A9E4)
+I (..\SPI\SPI.h)(0x5CB2F20C)
 I (..\v2m_mps2\SMM_MPS2.h)(0x596DED27)
 I (..\cmsis\Device\Include\peripherallink.h)(0x596DED29)
 I (..\cmsis\Device\Include\CMSDK_CM3\CMSDK_CM3.h)(0x596DED2A)
@@ -320,7 +345,7 @@ I (..\LIB_Config\MacroAndConst.h)(0x54B798EE)
 I (D:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x55AEF5F2)
 I (D:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x55AEF5F2)
 I (D:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x55AEF5F2)
-I (..\SPI\SPI.h)(0x5CB2A9E4)
+I (..\SPI\SPI.h)(0x5CB2F20C)
 I (..\v2m_mps2\SMM_MPS2.h)(0x596DED27)
 I (..\cmsis\Device\Include\peripherallink.h)(0x596DED29)
 I (..\cmsis\Device\Include\CMSDK_CM3\CMSDK_CM3.h)(0x596DED2A)

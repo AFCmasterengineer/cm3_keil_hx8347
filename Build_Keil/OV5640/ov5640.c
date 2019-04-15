@@ -2,7 +2,12 @@
 #include "ov5640cfg.h"
 #include "ov5640af.h"			 	
 #include "sccb.h"
+
+#include <stdio.h>
+
 #include "gpio_m3.h"
+
+#include "SMM_MPS2.h"
 //#include "../BSP/stm32746g_sdram.h"
 //#include "../BSP/stm32746g_LCD.h"
 //#include "dma2d.h"
@@ -83,7 +88,7 @@ uint8_t OV5640_Init(void)
  
 	OV5640_POWER_ON;
         
-//        HAL_Delay(30); 
+        Sleepms(30); 
               
 	reg=OV5640_RD_Reg(OV5640_CHIPIDH);	
 	reg<<=8;
@@ -95,17 +100,17 @@ uint8_t OV5640_Init(void)
 	}  
 	OV5640_WR_Reg(0x3103,0X11);	//system clock from pad, bit[1]
 	OV5640_WR_Reg(0X3008,0X82);	
-//	HAL_Delay(10);
+	Sleepms(10);
         
 	for(i=0;i<sizeof(ov5640_init_reg_tbl)/4;i++)
 	{
 		OV5640_WR_Reg(ov5640_init_reg_tbl[i][0],ov5640_init_reg_tbl[i][1]);
 	} 
 
-         HAL_Delay(50); 
+         Sleepms(50); 
         // Test for flash light
         OV5640_Flash_Lamp(1);
-        HAL_Delay(50); 
+        Sleepms(50); 
         OV5640_Flash_Lamp(0);        
                
 	return 0x00; 	//ok
@@ -391,7 +396,7 @@ uint8_t OV5640_Focus_Init(void)
 	do
 	{
 		state=OV5640_RD_Reg(0x3029);	
-		HAL_Delay(5);
+		Sleepms(5);
 		i++;
 		if(i>1000)return 1;
 	}while(state!=0x70); 
@@ -409,7 +414,7 @@ uint8_t OV5640_Auto_Focus(void)
 		temp=OV5640_RD_Reg(0x3023); 
 		retry++;
 		if(retry>1000)return 2;
-		HAL_Delay(5);
+		Sleepms(5);
 	} while(temp!=0x00);   
 	OV5640_WR_Reg(0x3023,0x01);
 	OV5640_WR_Reg(0x3022,0x04);
@@ -419,59 +424,59 @@ uint8_t OV5640_Auto_Focus(void)
 		temp=OV5640_RD_Reg(0x3023); 
 		retry++;
 		if(retry>1000)return 2;
-		HAL_Delay(5);
+		Sleepms(5);
 	}while(temp!=0x00);
 	return 0;
 } 
 
 
-//void jpeg_test(uint8_t jpg_size)
-//{       
-//        HAL_DCMI_Stop(&hdcmi); 
-//        
-// 	OV5640_JPEG_Mode();	
-// 	OV5640_OutSize_Set(4, 0, jpeg_size_tbl[jpg_size][0],jpeg_size_tbl[jpg_size][1]);                     
-//        
-//        OV5640_WR_Reg(0x3035,0X41); // slow down OV5640 clocks 
-//        OV5640_WR_Reg(0x3036,0x80); 
-//        
-//        /* DCMI DMA DeInit */
-//        HAL_DMA_DeInit(&hdma_dcmi);
-//        
-//        /* DCMI DMA Init */
-//        /* DCMI Init */
-//        hdma_dcmi.Instance = DMA2_Stream1;
-//        hdma_dcmi.Init.Channel = DMA_CHANNEL_1;
-//        hdma_dcmi.Init.Direction = DMA_PERIPH_TO_MEMORY;
-//        hdma_dcmi.Init.PeriphInc = DMA_PINC_DISABLE;
-//        hdma_dcmi.Init.MemInc = DMA_MINC_ENABLE;
-//        hdma_dcmi.Init.PeriphDataAlignment = DMA_PDATAALIGN_WORD;
-//        hdma_dcmi.Init.MemDataAlignment = DMA_MDATAALIGN_WORD;
-//        hdma_dcmi.Init.Mode = DMA_CIRCULAR;
-//        hdma_dcmi.Init.Priority = DMA_PRIORITY_HIGH;
-//        hdma_dcmi.Init.FIFOMode = DMA_FIFOMODE_ENABLE;
-//        hdma_dcmi.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_FULL;
-//        hdma_dcmi.Init.MemBurst = DMA_MBURST_SINGLE;
-//        hdma_dcmi.Init.PeriphBurst = DMA_PBURST_SINGLE;
-//        if (HAL_DMA_Init(&hdma_dcmi) != HAL_OK)
-//        {
-//        _Error_Handler(__FILE__, __LINE__);
-//        }
-//          
-//        __HAL_LINKDMA(&hdcmi,DMA_Handle,hdma_dcmi);
-//                
-//        __HAL_DCMI_ENABLE_IT(&hdcmi,DCMI_IT_FRAME);      
-//        
-//        /* Start the Camera capture */
-//        HAL_DCMI_Start_DMA(&hdcmi, DCMI_MODE_CONTINUOUS, (uint32_t)jpeg_data_buf, jpeg_buf_size/4 );     
+void jpeg_test(uint8_t jpg_size)
+{       
+        HAL_DCMI_Stop(&hdcmi); 
+        
+ 	OV5640_JPEG_Mode();	
+ 	OV5640_OutSize_Set(4, 0, jpeg_size_tbl[jpg_size][0],jpeg_size_tbl[jpg_size][1]);                     
+        
+        OV5640_WR_Reg(0x3035,0X41); // slow down OV5640 clocks 
+        OV5640_WR_Reg(0x3036,0x80); 
+        
+        /* DCMI DMA DeInit */
+        HAL_DMA_DeInit(&hdma_dcmi);
+        
+        /* DCMI DMA Init */
+        /* DCMI Init */
+        hdma_dcmi.Instance = DMA2_Stream1;
+        hdma_dcmi.Init.Channel = DMA_CHANNEL_1;
+        hdma_dcmi.Init.Direction = DMA_PERIPH_TO_MEMORY;
+        hdma_dcmi.Init.PeriphInc = DMA_PINC_DISABLE;
+        hdma_dcmi.Init.MemInc = DMA_MINC_ENABLE;
+        hdma_dcmi.Init.PeriphDataAlignment = DMA_PDATAALIGN_WORD;
+        hdma_dcmi.Init.MemDataAlignment = DMA_MDATAALIGN_WORD;
+        hdma_dcmi.Init.Mode = DMA_CIRCULAR;
+        hdma_dcmi.Init.Priority = DMA_PRIORITY_HIGH;
+        hdma_dcmi.Init.FIFOMode = DMA_FIFOMODE_ENABLE;
+        hdma_dcmi.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_FULL;
+        hdma_dcmi.Init.MemBurst = DMA_MBURST_SINGLE;
+        hdma_dcmi.Init.PeriphBurst = DMA_PBURST_SINGLE;
+        if (HAL_DMA_Init(&hdma_dcmi) != HAL_OK)
+        {
+        _Error_Handler(__FILE__, __LINE__);
+        }
+          
+        __HAL_LINKDMA(&hdcmi,DMA_Handle,hdma_dcmi);
+                
+        __HAL_DCMI_ENABLE_IT(&hdcmi,DCMI_IT_FRAME);      
+        
+        /* Start the Camera capture */
+        HAL_DCMI_Start_DMA(&hdcmi, DCMI_MODE_CONTINUOUS, (uint32_t)jpeg_data_buf, jpeg_buf_size/4 );     
 
-//        jpeg_mode = 1; 
-//                
-//        while(1)
-//        {
-//                     
-//        }       
-//}
+        jpeg_mode = 1; 
+                
+        while(1)
+        {
+                     
+        }       
+}
 
 /**
   * @brief   Initialize DMA2D to fills a RGB565 buffer.
@@ -483,168 +488,168 @@ uint8_t OV5640_Auto_Focus(void)
   * @param   OffLine: Offset
   * @retval  HAL status
   */
-//static HAL_StatusTypeDef  DMA2D_Fill_RGB565_Init(uint32_t LayerIndex, uint32_t OffLine) 
-//{
-//        hdma2d.Instance = DMA2D;
-//        hdma2d.Init.Mode = DMA2D_M2M;
-//        hdma2d.Init.ColorMode    = DMA2D_RGB565;
-//        hdma2d.Init.OutputOffset = OffLine;      
-//       
-//        /* DMA2D Initialization */
-//        if(HAL_DMA2D_Init(&hdma2d) == HAL_OK) 
-//        {
-//                if(HAL_DMA2D_ConfigLayer(&hdma2d, LayerIndex) == HAL_OK) 
-//                {
-//                        return HAL_OK;
-//                }
-//        }
-//        return  HAL_ERROR;
-//}
+static HAL_StatusTypeDef  DMA2D_Fill_RGB565_Init(uint32_t LayerIndex, uint32_t OffLine) 
+{
+        hdma2d.Instance = DMA2D;
+        hdma2d.Init.Mode = DMA2D_M2M;
+        hdma2d.Init.ColorMode    = DMA2D_RGB565;
+        hdma2d.Init.OutputOffset = OffLine;      
+       
+        /* DMA2D Initialization */
+        if(HAL_DMA2D_Init(&hdma2d) == HAL_OK) 
+        {
+                if(HAL_DMA2D_ConfigLayer(&hdma2d, LayerIndex) == HAL_OK) 
+                {
+                        return HAL_OK;
+                }
+        }
+        return  HAL_ERROR;
+}
 
-//void dcmi_dma_Half_TC_callback(DMA_HandleTypeDef *_hdma)
-//{        
-//        if(jpeg_mode == 0)   //RGB565 mode
-//        {                                     
-//                if(HAL_DMA2D_Start(&hdma2d, (uint32_t)&dcmi_line_buf[0], (uint32_t)hltdc.LayerCfg[0].FBStartAdress+XSIZE*2*curline, XSIZE, 1) == HAL_OK)
-//                {
-//                        /* Polling For DMA transfer */  
-//                        HAL_DMA2D_PollForTransfer(&hdma2d, 10); 
-//                }                
-//                if(curline < YSIZE)  curline++;
-//        }  
-//}
+void dcmi_dma_Half_TC_callback(DMA_HandleTypeDef *_hdma)
+{        
+        if(jpeg_mode == 0)   //RGB565 mode
+        {                                     
+                if(HAL_DMA2D_Start(&hdma2d, (uint32_t)&dcmi_line_buf[0], (uint32_t)hltdc.LayerCfg[0].FBStartAdress+XSIZE*2*curline, XSIZE, 1) == HAL_OK)
+                {
+                        /* Polling For DMA transfer */  
+                        HAL_DMA2D_PollForTransfer(&hdma2d, 10); 
+                }                
+                if(curline < YSIZE)  curline++;
+        }  
+}
 
-//void dcmi_dma_Full_TC_callback(DMA_HandleTypeDef *_hdma)
-//{              
-//        if(jpeg_mode == 0)   //RGB565 mode
-//        {                                     
-//                if(HAL_DMA2D_Start(&hdma2d, (uint32_t)&dcmi_line_buf[1], (uint32_t)hltdc.LayerCfg[0].FBStartAdress+XSIZE*2*curline, XSIZE, 1) == HAL_OK)
-//                {
-//                        /* Polling For DMA transfer */  
-//                        HAL_DMA2D_PollForTransfer(&hdma2d, 10);  
-//                }                
-//                if(curline < YSIZE)  curline++;
-//        }         
-//}
+void dcmi_dma_Full_TC_callback(DMA_HandleTypeDef *_hdma)
+{              
+        if(jpeg_mode == 0)   //RGB565 mode
+        {                                     
+                if(HAL_DMA2D_Start(&hdma2d, (uint32_t)&dcmi_line_buf[1], (uint32_t)hltdc.LayerCfg[0].FBStartAdress+XSIZE*2*curline, XSIZE, 1) == HAL_OK)
+                {
+                        /* Polling For DMA transfer */  
+                        HAL_DMA2D_PollForTransfer(&hdma2d, 10);  
+                }                
+                if(curline < YSIZE)  curline++;
+        }         
+}
 
-//void rgb565_test(void)
-//{        
-//        if(DMA2D_Fill_RGB565_Init(0, 0) == HAL_OK)
-//        {
-//                HAL_DCMI_Stop(&hdcmi);  
-//       
-//                jpeg_mode = 0;           
-//                curline = 0;
-//                
-//                OV5640_RGB565_Mode();	
-//                OV5640_OutSize_Set(4,0, XSIZE , YSIZE);	
-//             
-//                OV5640_WR_Reg(0x3035,0X31); // slow down OV5640 clocks ,adapt to the refresh rate of the LCD 
-//                OV5640_WR_Reg(0x3036,0xE0); 
-//                         
-//                /* DCMI DMA DeInit */
-//                HAL_DMA_DeInit(&hdma_dcmi);
-//                
-//                /* DCMI DMA Init */
-//                /* DCMI Init */
-//                hdma_dcmi.Instance = DMA2_Stream1;
-//                hdma_dcmi.Init.Channel = DMA_CHANNEL_1;
-//                hdma_dcmi.Init.Direction = DMA_PERIPH_TO_MEMORY;
-//                hdma_dcmi.Init.PeriphInc = DMA_PINC_DISABLE;
-//                hdma_dcmi.Init.MemInc = DMA_MINC_ENABLE;
-//                hdma_dcmi.Init.PeriphDataAlignment = DMA_PDATAALIGN_WORD;
-//                hdma_dcmi.Init.MemDataAlignment = DMA_MDATAALIGN_HALFWORD;
-//                hdma_dcmi.Init.Mode = DMA_CIRCULAR;
-//                hdma_dcmi.Init.Priority = DMA_PRIORITY_VERY_HIGH;
-//                hdma_dcmi.Init.FIFOMode = DMA_FIFOMODE_ENABLE;
-//                hdma_dcmi.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_FULL;
-//                hdma_dcmi.Init.MemBurst = DMA_MBURST_SINGLE;
-//                hdma_dcmi.Init.PeriphBurst = DMA_PBURST_SINGLE;
-//                if (HAL_DMA_Init(&hdma_dcmi) != HAL_OK)
-//                {
-//                _Error_Handler(__FILE__, __LINE__);
-//                }      
-//                
-//                __HAL_LINKDMA(&hdcmi,DMA_Handle,hdma_dcmi);
-//             
-//                __HAL_DCMI_ENABLE_IT(&hdcmi,DCMI_IT_FRAME);     
-//                 
-//                hdma_dcmi.XferHalfCpltCallback = dcmi_dma_Half_TC_callback;             
-//                                   
-//                /* Start the Camera capture */
-//                HAL_DCMI_Start_DMA(&hdcmi, DCMI_MODE_CONTINUOUS, (uint32_t)dcmi_line_buf, XSIZE); 
+void rgb565_test(void)
+{        
+        if(DMA2D_Fill_RGB565_Init(0, 0) == HAL_OK)
+        {
+                HAL_DCMI_Stop(&hdcmi);  
+       
+                jpeg_mode = 0;           
+                curline = 0;
+                
+                OV5640_RGB565_Mode();	
+                OV5640_OutSize_Set(4,0, XSIZE , YSIZE);	
+             
+                OV5640_WR_Reg(0x3035,0X31); // slow down OV5640 clocks ,adapt to the refresh rate of the LCD 
+                OV5640_WR_Reg(0x3036,0xE0); 
+                         
+                /* DCMI DMA DeInit */
+                HAL_DMA_DeInit(&hdma_dcmi);
+                
+                /* DCMI DMA Init */
+                /* DCMI Init */
+                hdma_dcmi.Instance = DMA2_Stream1;
+                hdma_dcmi.Init.Channel = DMA_CHANNEL_1;
+                hdma_dcmi.Init.Direction = DMA_PERIPH_TO_MEMORY;
+                hdma_dcmi.Init.PeriphInc = DMA_PINC_DISABLE;
+                hdma_dcmi.Init.MemInc = DMA_MINC_ENABLE;
+                hdma_dcmi.Init.PeriphDataAlignment = DMA_PDATAALIGN_WORD;
+                hdma_dcmi.Init.MemDataAlignment = DMA_MDATAALIGN_HALFWORD;
+                hdma_dcmi.Init.Mode = DMA_CIRCULAR;
+                hdma_dcmi.Init.Priority = DMA_PRIORITY_VERY_HIGH;
+                hdma_dcmi.Init.FIFOMode = DMA_FIFOMODE_ENABLE;
+                hdma_dcmi.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_FULL;
+                hdma_dcmi.Init.MemBurst = DMA_MBURST_SINGLE;
+                hdma_dcmi.Init.PeriphBurst = DMA_PBURST_SINGLE;
+                if (HAL_DMA_Init(&hdma_dcmi) != HAL_OK)
+                {
+                _Error_Handler(__FILE__, __LINE__);
+                }      
+                
+                __HAL_LINKDMA(&hdcmi,DMA_Handle,hdma_dcmi);
+             
+                __HAL_DCMI_ENABLE_IT(&hdcmi,DCMI_IT_FRAME);     
+                 
+                hdma_dcmi.XferHalfCpltCallback = dcmi_dma_Half_TC_callback;             
+                                   
+                /* Start the Camera capture */
+                HAL_DCMI_Start_DMA(&hdcmi, DCMI_MODE_CONTINUOUS, (uint32_t)dcmi_line_buf, XSIZE); 
 
-//                hdma_dcmi.XferCpltCallback = dcmi_dma_Full_TC_callback;
-//                                        
-//                while(1)
-//                {             
-//    
-//                } 
-//        }         
-//}
+                hdma_dcmi.XferCpltCallback = dcmi_dma_Full_TC_callback;
+                                        
+                while(1)
+                {             
+    
+                } 
+        }         
+}
 
-//void jpeg_dcmi_frame_callback(DMA_HandleTypeDef *_hdma)
-//{         
-//        uint8_t *p;
-//        uint32_t i=0,jpgstart=0,jpglen=0; 
-//        uint8_t  head=0;
-//      
-//                
-//        HAL_DCMI_Stop(&hdcmi);
+void jpeg_dcmi_frame_callback(DMA_HandleTypeDef *_hdma)
+{         
+        uint8_t *p;
+        uint32_t i=0,jpgstart=0,jpglen=0; 
+        uint8_t  head=0;
+      
+                
+        HAL_DCMI_Stop(&hdcmi);
 
-//        p=(uint8_t*)jpeg_data_buf;
-//        
-//        for(i=0;i<jpeg_buf_size; i++)//search for 0XFF 0XD8 and 0XFF 0XD9, get size of JPG 
-//        {
-//                if((p[i]==0XFF)&&(p[i+1]==0XD8))
-//                {
-//                        jpgstart=i;
-//                        head=1;	// Already found  FF D8
-//                }
-//                if((p[i]==0XFF)&&(p[i+1]==0XD9)&&head) //search for FF D9
-//                {
-//                        jpglen=i-jpgstart+2;
-//                        break;
-//                }
-//        }
-//        if(jpglen)	 
-//        {
-//                p+=jpgstart;	// move to FF D8
-//                for(i=0;i<jpglen;i++)	// send JPG
-//                {
-//                        USART1->TDR=p[i];  
-//                        while((USART1->ISR&0X40)==0);
-//                }  
-//                
-//                printf("jpg_size :  %d \r\n" , jpglen);  
-//                //printf("jpgstart :  %d \r\n" , jpgstart); 
-//        }
-//            
-//        HAL_DCMI_Start_DMA(&hdcmi, DCMI_MODE_CONTINUOUS, (uint32_t)jpeg_data_buf, jpeg_buf_size/4 );           
-//}
+        p=(uint8_t*)jpeg_data_buf;
+        
+        for(i=0;i<jpeg_buf_size; i++)//search for 0XFF 0XD8 and 0XFF 0XD9, get size of JPG 
+        {
+                if((p[i]==0XFF)&&(p[i+1]==0XD8))
+                {
+                        jpgstart=i;
+                        head=1;	// Already found  FF D8
+                }
+                if((p[i]==0XFF)&&(p[i+1]==0XD9)&&head) //search for FF D9
+                {
+                        jpglen=i-jpgstart+2;
+                        break;
+                }
+        }
+        if(jpglen)	 
+        {
+                p+=jpgstart;	// move to FF D8
+                for(i=0;i<jpglen;i++)	// send JPG
+                {
+                        USART1->TDR=p[i];  
+                        while((USART1->ISR&0X40)==0);
+                }  
+                
+                printf("jpg_size :  %d \r\n" , jpglen);  
+                //printf("jpgstart :  %d \r\n" , jpgstart); 
+        }
+            
+        HAL_DCMI_Start_DMA(&hdcmi, DCMI_MODE_CONTINUOUS, (uint32_t)jpeg_data_buf, jpeg_buf_size/4 );           
+}
 
-//// DCMI Frame Event callback.
-//void HAL_DCMI_FrameEventCallback(DCMI_HandleTypeDef *hdcmi)
-//{            
-//        if(jpeg_mode == 1)
-//        {                                            
-//                jpeg_dcmi_frame_callback(&hdma_dcmi); 
-//        }
-//        else if(jpeg_mode == 0)
-//        {                          
-//                if(curline != YSIZE)
-//                {          
-//                        HAL_DCMI_Stop(hdcmi);
-//                        hdma_dcmi.XferHalfCpltCallback = dcmi_dma_Half_TC_callback;
-//                        HAL_DCMI_Start_DMA(hdcmi, DCMI_MODE_CONTINUOUS, (uint32_t)dcmi_line_buf, XSIZE);            
-//                        hdma_dcmi.XferCpltCallback = dcmi_dma_Full_TC_callback;                
-//                }   
-//                curline = 0;           
-//        }  
-//        
-//        // Re enable the DCMI_IT_FRAME, because it will be disable in HAL_DCMI_IRQHandler()
-//        __HAL_DCMI_ENABLE_IT(hdcmi,DCMI_IT_FRAME);  
-//}
+// DCMI Frame Event callback.
+void HAL_DCMI_FrameEventCallback(DCMI_HandleTypeDef *hdcmi)
+{            
+        if(jpeg_mode == 1)
+        {                                            
+                jpeg_dcmi_frame_callback(&hdma_dcmi); 
+        }
+        else if(jpeg_mode == 0)
+        {                          
+                if(curline != YSIZE)
+                {          
+                        HAL_DCMI_Stop(hdcmi);
+                        hdma_dcmi.XferHalfCpltCallback = dcmi_dma_Half_TC_callback;
+                        HAL_DCMI_Start_DMA(hdcmi, DCMI_MODE_CONTINUOUS, (uint32_t)dcmi_line_buf, XSIZE);            
+                        hdma_dcmi.XferCpltCallback = dcmi_dma_Full_TC_callback;                
+                }   
+                curline = 0;           
+        }  
+        
+        // Re enable the DCMI_IT_FRAME, because it will be disable in HAL_DCMI_IRQHandler()
+        __HAL_DCMI_ENABLE_IT(hdcmi,DCMI_IT_FRAME);  
+}
 
 
 

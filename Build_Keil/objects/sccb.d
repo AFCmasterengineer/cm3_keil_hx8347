@@ -2,7 +2,7 @@
 .\objects\sccb.o: OV5640\sccb.h
 .\objects\sccb.o: ..\cmsis\Device\Include\CMSDK_CM3\CMSDK_CM3.h
 .\objects\sccb.o: ..\cmsis\CMSIS\Include\core_cm3.h
-.\objects\sccb.o: E:\keil_core\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\sccb.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\sccb.o: ..\cmsis\CMSIS\Include\core_cmInstr.h
 .\objects\sccb.o: ..\cmsis\CMSIS\Include\core_cmFunc.h
 .\objects\sccb.o: ..\cmsis\Device\Include\CMSDK_CM3\system_CMSDK_CM3.h

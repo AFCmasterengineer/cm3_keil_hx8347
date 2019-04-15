@@ -27,17 +27,60 @@ Project File Date:  04/13/2019
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 (build 20)', folder: 'D:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'SelfTest'
-compiling main.c...
-..\apmain\main.c(328): warning:  #177-D: function "VGA_Test" was declared but never referenced
-  static void VGA_Test (void)
-..\apmain\main.c: 1 warning, 0 errors
+compiling sccb.c...
+OV5640\sccb.c(21): warning:  #223-D: function "gpio_m3_output" declared implicitly
+      
+V5640_SIOD_H();    
+OV5640\sccb.c(31): warning:  #223-D: function "gpio_m3_output" declared implicitly
+      
+V5640_SIOD_L();
+OV5640\sccb.c(42): warning:  #223-D: function "gpio_m3_output" declared implicitly
+  	
+V5640_SIOD_H();	
+OV5640\sccb.c(56): warning:  #223-D: function "gpio_m3_output" declared implicitly
+  		if(dat&0x80)
+V5640_SIOD_H();	
+OV5640\sccb.c(65): warning:  #223-D: function "gpio_m3_output" declared implicitly
+  	
+V5640_SIOC_H();		
+OV5640\sccb.c(67): warning:  #223-D: function "gpio_m3_input" declared implicitly
+  	if(
+V5640_SIOD_READ())res=1;  
+OV5640\sccb.c(79): warning:  #223-D: function "gpio_m3_output" declared implicitly
+  		
+V5640_SIOC_H();
+OV5640\sccb.c(81): warning:  #223-D: function "gpio_m3_input" declared implicitly
+  		if(
+V5640_SIOD_READ())temp++;   
+OV5640\sccb.c: 8 warnings, 0 errors
+compiling GLCD_SPI_MPS2.c...
+compiling ov5640.c...
+OV5640\ov5640.c(84): warning:  #223-D: function "gpio_m3_output" declared implicitly
+  	
+V5640_POWER_ON;
+OV5640\ov5640.c(93): warning:  #223-D: function "printf" declared implicitly
+  		printf("ID: %d \r\n",reg);
+OV5640\ov5640.c(105): warning:  #223-D: function "HAL_Delay" declared implicitly
+           HAL_Delay(50); 
+OV5640\ov5640.c(394): warning:  #223-D: function "HAL_Delay" declared implicitly
+  		HAL_Delay(5);
+OV5640\ov5640.c(412): warning:  #223-D: function "HAL_Delay" declared implicitly
+  		HAL_Delay(5);
+OV5640\ov5640.c(422): warning:  #223-D: function "HAL_Delay" declared implicitly
+  		HAL_Delay(5);
+OV5640\ov5640.c: 6 warnings, 0 errors
+compiling SPI_MPS2.c...
+compiling LCD.c...
+compiling Fonts.c...
 linking...
-Program Size: Code=25020 RO-data=318008 RW-data=252 ZI-data=5248  
-After Build - User command #1: move.bat
-F:\Felix\stm_soc\AT421-MN-80001-r0p0-02rel0\m3designstart\selftest\Build_Keil>call copy objects\selftest.axf st_m3ds.axf 
-已复制         1 个文件。
-".\objects\selftest.axf" - 0 Error(s), 1 Warning(s).
-Build Time Elapsed:  00:00:01
+.\objects\selftest.axf: Error: L6218E: Undefined symbol HAL_Delay (referred from ov5640.o).
+.\objects\selftest.axf: Error: L6218E: Undefined symbol gpio_m3_output (referred from ov5640.o).
+.\objects\selftest.axf: Error: L6218E: Undefined symbol gpio_m3_input (referred from sccb.o).
+Not enough information to list image symbols.
+Finished: 1 information, 0 warning and 3 error messages.
+".\objects\selftest.axf" - 3 Error(s), 14 Warning(s).
+Target not created.
+Build Time Elapsed:  00:00:05
 </pre>
 </body>
 </html>

@@ -18,9 +18,9 @@
 #define WAKE_UP_KEY_Pin					(U8)5
 
 
-#define   JOYSTICK_KEY_PRESS     gpio_m3_input(JOYSTICK_KEY_GPIO_Port, JOYSTICK_KEY_Pin) == 0
-#define   WAKE_UP_KEY_PRESS      gpio_m3_input(WAKE_UP_KEY_GPIO_Port, WAKE_UP_KEY_Pin) == 1
-#define   OV5640_POWER_ON        gpio_m3_output(OV5640_PWDN_GPIO_Port, OV5640_PWDN_Pin, 0x00)
+#define   JOYSTICK_KEY_PRESS     gpio_m3_in(JOYSTICK_KEY_GPIO_Port, JOYSTICK_KEY_Pin) == 0
+#define   WAKE_UP_KEY_PRESS      gpio_m3_in(WAKE_UP_KEY_GPIO_Port, WAKE_UP_KEY_Pin) == 1
+#define   OV5640_POWER_ON        gpio_m3_out(OV5640_PWDN_GPIO_Port, OV5640_PWDN_Pin, 0x00)
 
 
 #define   JPEG_BUF_SIZE_MAX     400*1024    

@@ -8,12 +8,12 @@
 #define    OV5640_SIOC_pin    	(U8)1
 #define    OV5640_SIOD_pin			(U8)2
 
-#define    OV5640_SIOC_H()       gpio_m3_output(OV5640_GPIO_port,OV5640_SIOC_pin,(U8)1)
-#define    OV5640_SIOC_L()       gpio_m3_output(OV5640_GPIO_port,OV5640_SIOC_pin,(U8)0)
-#define    OV5640_SIOD_H()       gpio_m3_output(OV5640_GPIO_port,OV5640_SIOD_pin,(U8)1)
-#define    OV5640_SIOD_L()       gpio_m3_output(OV5640_GPIO_port,OV5640_SIOD_pin,(U8)0)
+#define    OV5640_SIOC_H()       gpio_m3_out(OV5640_GPIO_port,OV5640_SIOC_pin,(U8)1)
+#define    OV5640_SIOC_L()       gpio_m3_out(OV5640_GPIO_port,OV5640_SIOC_pin,(U8)0)
+#define    OV5640_SIOD_H()       gpio_m3_out(OV5640_GPIO_port,OV5640_SIOD_pin,(U8)1)
+#define    OV5640_SIOD_L()       gpio_m3_out(OV5640_GPIO_port,OV5640_SIOD_pin,(U8)0)
 
-#define    OV5640_SIOD_READ()     gpio_m3_input(OV5640_GPIO_port, OV5640_SIOD_pin)
+#define    OV5640_SIOD_READ()     gpio_m3_in(OV5640_GPIO_port, OV5640_SIOD_pin)
 
 
 void SCCB_Init(void);
