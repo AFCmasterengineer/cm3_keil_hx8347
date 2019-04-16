@@ -25,8 +25,6 @@
 ".\objects\fpga.o"
 ".\objects\led.o"
 ".\objects\gpio_m3.o"
-".\objects\ov5640.o"
-".\objects\sccb.o"
 ".\objects\lcd.o"
 ".\objects\spi_mps2.o"
 ".\objects\fonts.o"

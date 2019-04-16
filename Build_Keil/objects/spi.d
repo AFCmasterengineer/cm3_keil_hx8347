@@ -1,9 +1,9 @@
 .\objects\spi.o: ..\SPI\SPI.c
 .\objects\spi.o: ..\LIB_Config\LIB_Config.h
 .\objects\spi.o: ..\LIB_Config\MacroAndConst.h
-.\objects\spi.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-.\objects\spi.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
-.\objects\spi.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\objects\spi.o: E:\keil_core\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\spi.o: E:\keil_core\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\spi.o: E:\keil_core\ARM\ARMCC\Bin\..\include\stdbool.h
 .\objects\spi.o: ..\SPI\SPI.h
 .\objects\spi.o: ..\v2m_mps2\SMM_MPS2.h
 .\objects\spi.o: ..\cmsis\Device\Include\peripherallink.h
@@ -13,8 +13,8 @@
 .\objects\spi.o: ..\cmsis\CMSIS\Include\core_cmFunc.h
 .\objects\spi.o: ..\cmsis\Device\Include\CMSDK_CM3\system_CMSDK_CM3.h
 .\objects\spi.o: ..\LCD\LCD.h
-.\objects\spi.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
-.\objects\spi.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\objects\spi.o: E:\keil_core\ARM\ARMCC\Bin\..\include\math.h
+.\objects\spi.o: E:\keil_core\ARM\ARMCC\Bin\..\include\stdlib.h
 .\objects\spi.o: ..\Fonts\Fonts.h
 .\objects\spi.o: .\OV5640\gpio_m3.h
 .\objects\spi.o: ..\cmsis\Device\Include\CMSDK_driver.h

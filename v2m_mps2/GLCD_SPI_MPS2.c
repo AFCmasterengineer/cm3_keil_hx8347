@@ -163,7 +163,7 @@ static __inline void wr_dat_stop (void) {
 *******************************************************************************/
 
 static __inline void wr_dat_only (unsigned short dat) {
-	gpio_m3_out(CMSDK_GPIO0,1,1);
+//	gpio_m3_out(CMSDK_GPIO0,1,1);
   spi_tran((dat >>   8));                     /* Write D8..D15                */
   spi_tran((dat & 0xFF));                     /* Write D0..D7                 */
 }

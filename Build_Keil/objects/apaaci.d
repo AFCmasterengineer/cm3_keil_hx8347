@@ -1,8 +1,8 @@
 .\objects\apaaci.o: ..\apaaci\apaaci.c
-.\objects\apaaci.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-.\objects\apaaci.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\objects\apaaci.o: E:\keil_core\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\apaaci.o: E:\keil_core\ARM\ARMCC\Bin\..\include\stdlib.h
 .\objects\apaaci.o: ..\v2m_mps2\AAIC_I2S_MPS2.h
-.\objects\apaaci.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\apaaci.o: E:\keil_core\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\apaaci.o: ..\v2m_mps2\SMM_MPS2.h
 .\objects\apaaci.o: ..\cmsis\Device\Include\peripherallink.h
 .\objects\apaaci.o: ..\cmsis\Device\Include\CMSDK_CM3\CMSDK_CM3.h

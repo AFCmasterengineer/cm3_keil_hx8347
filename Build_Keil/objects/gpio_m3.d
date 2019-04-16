@@ -1,7 +1,7 @@
 .\objects\gpio_m3.o: OV5640\gpio_m3.c
 .\objects\gpio_m3.o: OV5640\gpio_m3.h
 .\objects\gpio_m3.o: ..\cmsis\Device\Include\CMSDK_driver.h
-.\objects\gpio_m3.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\gpio_m3.o: E:\keil_core\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\gpio_m3.o: ..\cmsis\Device\Include\peripherallink.h
 .\objects\gpio_m3.o: ..\cmsis\Device\Include\CMSDK_CM3\CMSDK_CM3.h
 .\objects\gpio_m3.o: ..\cmsis\CMSIS\Include\core_cm3.h

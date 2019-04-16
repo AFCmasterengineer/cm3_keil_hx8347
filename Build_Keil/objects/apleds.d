@@ -1,11 +1,11 @@
 .\objects\apleds.o: ..\apleds\apleds.c
-.\objects\apleds.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-.\objects\apleds.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\objects\apleds.o: E:\keil_core\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\apleds.o: E:\keil_core\ARM\ARMCC\Bin\..\include\stdlib.h
 .\objects\apleds.o: ..\v2m_mps2\SMM_MPS2.h
 .\objects\apleds.o: ..\cmsis\Device\Include\peripherallink.h
 .\objects\apleds.o: ..\cmsis\Device\Include\CMSDK_CM3\CMSDK_CM3.h
 .\objects\apleds.o: ..\cmsis\CMSIS\Include\core_cm3.h
-.\objects\apleds.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\apleds.o: E:\keil_core\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\apleds.o: ..\cmsis\CMSIS\Include\core_cmInstr.h
 .\objects\apleds.o: ..\cmsis\CMSIS\Include\core_cmFunc.h
 .\objects\apleds.o: ..\cmsis\Device\Include\CMSDK_CM3\system_CMSDK_CM3.h

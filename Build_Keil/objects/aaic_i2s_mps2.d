@@ -1,6 +1,6 @@
 .\objects\aaic_i2s_mps2.o: ..\v2m_mps2\AAIC_I2S_MPS2.c
 .\objects\aaic_i2s_mps2.o: ..\v2m_mps2\AAIC_I2S_MPS2.h
-.\objects\aaic_i2s_mps2.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\aaic_i2s_mps2.o: E:\keil_core\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\aaic_i2s_mps2.o: ..\v2m_mps2\SMM_MPS2.h
 .\objects\aaic_i2s_mps2.o: ..\cmsis\Device\Include\peripherallink.h
 .\objects\aaic_i2s_mps2.o: ..\cmsis\Device\Include\CMSDK_CM3\CMSDK_CM3.h

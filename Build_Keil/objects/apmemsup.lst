@@ -84,9 +84,9 @@ ARM Macro Assembler    Page 2
    53 0000001E         
    54 0000001E                 END
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
-ork --depend=.\objects\apmemsup.d -o.\objects\apmemsup.o -ID:\Keil_v5\ARM\RV31\
-INC -ID:\Keil_v5\ARM\CMSIS\Include --predefine="__UVISION_VERSION SETA 516" --l
-ist=.\objects\apmemsup.lst ..\apmem\apmemsup.s
+ork --depend=.\objects\apmemsup.d -o.\objects\apmemsup.o -IE:\keil_core\ARM\RV3
+1\INC -IE:\keil_core\ARM\CMSIS\Include --predefine="__UVISION_VERSION SETA 516"
+ --list=.\objects\apmemsup.lst ..\apmem\apmemsup.s
 
 
 

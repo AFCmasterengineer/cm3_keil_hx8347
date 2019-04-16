@@ -47,6 +47,9 @@
 //GPIO
 #include "gpio_m3.h"
 
+#include "GLCD_SPI_MPS2.h"
+#include "SMM_MPS2.h"
+
 //#define LCD_RST_GPIO   GPIOB
 #define LCD_BKL_GPIO   CMSDK_GPIO0
 #define LCD_DC_GPIO    CMSDK_GPIO0
@@ -57,12 +60,12 @@
 
 
 //#define LCD_RST_PIN    GPIO_Pin_0
-#define LCD_BKL_PIN    			7
-#define LCD_DC_PIN     			8
-#define LCD_CS_PIN     			9
+#define LCD_BKL_PIN    			4
+#define LCD_DC_PIN     			1
+#define LCD_CS_PIN     			12
 #define LCD_CLK_PIN    			10
-#define LCD_SDO_PIN    			11
-#define LCD_SDI_PIN    			12
+#define LCD_SDO_PIN    			8
+#define LCD_SDI_PIN    			7
 
 //#define __LCD_RST_SET()     GPIO_WriteBit(LCD_RST_GPIO, LCD_RST_PIN, Bit_SET)
 //#define __LCD_RST_CLR()     GPIO_WriteBit(LCD_RST_GPIO, LCD_RST_PIN, Bit_RESET)
@@ -76,8 +79,8 @@
 #define __LCD_DC_SET()     gpio_m3_out(LCD_DC_GPIO,LCD_DC_PIN,1);
 #define __LCD_DC_CLR()     gpio_m3_out(LCD_DC_GPIO,LCD_DC_PIN,0);
 
-#define __LCD_CLK_SET()     gpio_m3_out(LCD_DC_GPIO,LCD_DC_PIN,1);
-#define __LCD_CLK_CLR()     gpio_m3_out(LCD_DC_GPIO,LCD_DC_PIN,0);
+#define __LCD_CLK_SET()     gpio_m3_out(LCD_CLK_GPIO,LCD_CLK_PIN,1);
+#define __LCD_CLK_CLR()     gpio_m3_out(LCD_CLK_GPIO,LCD_CLK_PIN,0);
 
 #define __LCD_SDI_SET()     gpio_m3_out(LCD_SDI_GPIO,LCD_SDI_PIN,1);
 #define __LCD_SDI_CLR()     gpio_m3_out(LCD_SDI_GPIO,LCD_SDI_PIN,0);

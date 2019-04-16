@@ -3,7 +3,7 @@
 .\objects\led.o: ..\cmsis\Device\Include\peripherallink.h
 .\objects\led.o: ..\cmsis\Device\Include\CMSDK_CM3\CMSDK_CM3.h
 .\objects\led.o: ..\cmsis\CMSIS\Include\core_cm3.h
-.\objects\led.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\led.o: E:\keil_core\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\led.o: ..\cmsis\CMSIS\Include\core_cmInstr.h
 .\objects\led.o: ..\cmsis\CMSIS\Include\core_cmFunc.h
 .\objects\led.o: ..\cmsis\Device\Include\CMSDK_CM3\system_CMSDK_CM3.h

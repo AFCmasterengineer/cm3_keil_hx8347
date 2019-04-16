@@ -404,7 +404,7 @@ int main (void)
 		
 		//altfun of GPIO 11-14
 		CMSDK_GPIO0->ALTFUNCCLR = 0xFFFF;//0111 1000 0000 0000
-		CMSDK_GPIO0->ALTFUNCSET = 0xFFF0;//0111 1000 0000 0000
+		CMSDK_GPIO0->ALTFUNCSET = 0xEFF0;//0111 1000 0000 0000
 //		printf("%x",CMSDK_gpio_GetAltFunc(CMSDK_GPIO0));
 		
 		gpio_m3_out(CMSDK_GPIO0,1,0);
@@ -488,8 +488,26 @@ int main (void)
 //        }
 //    }
 
+		  MPS2_SSP3->CR1   =   0;                 /* Synchronous serial port disable  */
+			MPS2_SSP3->DMACR =   0;                 /* Disable FIFO DMA                 */
+			MPS2_SSP3->IMSC  =   0;                 /* Mask all FIFO/IRQ interrupts     */
+			MPS2_SSP3->ICR   = ((1ul <<  0) |       /* Clear SSPRORINTR interrupt       */
+													(1ul <<  1) );      /* Clear SSPRTINTR interrupt        */
+			MPS2_SSP3->CR0   = ((7ul <<  0) |       /* 8 bit data size                  */
+													(0ul <<  4) |       /* Motorola frame format            */
+													(0ul <<  6) |       /* CPOL = 0                         */
+													(0ul <<  7) |       /* CPHA = 0                         */
+													(1ul <<  8) );      /* Set serial clock rate            */
+			MPS2_SSP3->CPSR  =  (2ul <<  0);        /* set SSP clk to 6MHz (6.6MHz max) */
+			MPS2_SSP3->CR1   = ((1ul <<  1) |       /* Synchronous serial port enable   */
+													(0ul <<  2) );      /* Device configured as master      */
 
 		lcd_init();
+		
+	
+		printf("\nProgram terminated.\n");
+		gpio_m3_out(CMSDK_GPIO0,2,1);
+	while (1) {
 		lcd_draw_rect(30, 40, 150, 100, RED);
     lcd_draw_circle(120, 160, 50, BLUE);
     lcd_draw_line(30, 40, 180, 140, RED);
@@ -497,10 +515,6 @@ int main (void)
     lcd_draw_line(30, 220, 210, 240, RED);
     lcd_draw_line(30, 220, 120, 280, RED);
     lcd_draw_line(120, 280, 210, 240, RED);
-	
-		printf("\nProgram terminated.\n");
-	while (1) {
-		
 	}
 
     

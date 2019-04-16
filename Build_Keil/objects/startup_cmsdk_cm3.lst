@@ -557,10 +557,10 @@ ARM Macro Assembler    Page 9
               00000C00 
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
-ork --depend=.\objects\startup_cmsdk_cm3.d -o.\objects\startup_cmsdk_cm3.o -ID:
-\Keil_v5\ARM\RV31\INC -ID:\Keil_v5\ARM\CMSIS\Include --predefine="__UVISION_VER
-SION SETA 516" --list=.\objects\startup_cmsdk_cm3.lst ..\cmsis\Device\Source\CM
-SDK_CM3\startup_CMSDK_CM3.s
+ork --depend=.\objects\startup_cmsdk_cm3.d -o.\objects\startup_cmsdk_cm3.o -IE:
+\keil_core\ARM\RV31\INC -IE:\keil_core\ARM\CMSIS\Include --predefine="__UVISION
+_VERSION SETA 516" --list=.\objects\startup_cmsdk_cm3.lst ..\cmsis\Device\Sourc
+e\CMSDK_CM3\startup_CMSDK_CM3.s
 
 
 
