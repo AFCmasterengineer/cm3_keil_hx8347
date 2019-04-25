@@ -1,9 +1,0 @@
-.\objects\fpga.o: ..\v2m_mps2\fpga.c
-.\objects\fpga.o: ..\v2m_mps2\SMM_MPS2.h
-.\objects\fpga.o: ..\cmsis\Device\Include\peripherallink.h
-.\objects\fpga.o: ..\cmsis\Device\Include\CMSDK_CM3\CMSDK_CM3.h
-.\objects\fpga.o: ..\cmsis\CMSIS\Include\core_cm3.h
-.\objects\fpga.o: E:\keil_core\ARM\ARMCC\Bin\..\include\stdint.h
-.\objects\fpga.o: ..\cmsis\CMSIS\Include\core_cmInstr.h
-.\objects\fpga.o: ..\cmsis\CMSIS\Include\core_cmFunc.h
-.\objects\fpga.o: ..\cmsis\Device\Include\CMSDK_CM3\system_CMSDK_CM3.h
