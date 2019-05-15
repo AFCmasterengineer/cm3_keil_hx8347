@@ -44,9 +44,12 @@
 
 #include "gpio_m3.h"
 #include "LCD.h"
+#include "LIB_Config.h"
 // Local variables
 
 // Return status
+
+void PORT0_7_Handler(void);
 typedef enum sts
 {
     TEST_S_UNKNOWN,
@@ -404,10 +407,10 @@ int main (void)
 		
 		//altfun of GPIO 11-14
 		CMSDK_GPIO0->ALTFUNCCLR = 0xFFFF;//0111 1000 0000 0000
-		CMSDK_GPIO0->ALTFUNCSET = 0xEFF0;//0111 1000 0000 0000
+		CMSDK_GPIO0->ALTFUNCSET = 0x6800;//0110 1000 0000 0000
 //		printf("%x",CMSDK_gpio_GetAltFunc(CMSDK_GPIO0));
-		
-		gpio_m3_out(CMSDK_GPIO0,1,0);
+//		
+//		gpio_m3_out(CMSDK_GPIO0,1,0);
 ////////comment here 
 //    // Display the board revision
 //    rev = MPS2_SCC->CFG_REG4;
@@ -495,8 +498,8 @@ int main (void)
 													(1ul <<  1) );      /* Clear SSPRTINTR interrupt        */
 			MPS2_SSP3->CR0   = ((7ul <<  0) |       /* 8 bit data size                  */
 													(0ul <<  4) |       /* Motorola frame format            */
-													(0ul <<  6) |       /* CPOL = 0                         */
-													(0ul <<  7) |       /* CPHA = 0                         */
+													(1ul <<  6) |       /* CPOL = 0                         */
+													(1ul <<  7) |       /* CPHA = 0                         */
 													(1ul <<  8) );      /* Set serial clock rate            */
 			MPS2_SSP3->CPSR  =  (2ul <<  0);        /* set SSP clk to 6MHz (6.6MHz max) */
 			MPS2_SSP3->CR1   = ((1ul <<  1) |       /* Synchronous serial port enable   */
@@ -506,8 +509,6 @@ int main (void)
 		
 	
 		printf("\nProgram terminated.\n");
-		gpio_m3_out(CMSDK_GPIO0,2,1);
-	while (1) {
 		lcd_draw_rect(30, 40, 150, 100, RED);
     lcd_draw_circle(120, 160, 50, BLUE);
     lcd_draw_line(30, 40, 180, 140, RED);
@@ -515,8 +516,44 @@ int main (void)
     lcd_draw_line(30, 220, 210, 240, RED);
     lcd_draw_line(30, 220, 120, 280, RED);
     lcd_draw_line(120, 280, 210, 240, RED);
+		
+		
+		
+		//
+		//
+		//set interupt of GPIO7
+		CMSDK_GPIO0->INTENCLR=0xFFFF;
+		CMSDK_gpio_ClrOutEnable(CMSDK_GPIO0,7);
+
+////		CMSDK_gpio_SetIntFallingEdge(CMSDK_GPIO0,7);
+		CMSDK_gpio_SetIntHighLevel(CMSDK_GPIO0,7);
+//		
+		CMSDK_GPIO0->INTENSET = (1 << 7);
+//		CMSDK_GPIO0->INTENCLR = (1 << 7);
+		
+		CMSDK_gpio_SetIntFallingEdge(CMSDK_GPIO0,7);
+		
+		printf("after SET set");
+		printf("%d\n",gpio_m3_in(CMSDK_GPIO0,7));
+		printf("INTSTATUS:%x\n",CMSDK_GPIO0->INTSTATUS);
+		printf("OUTPUTEN:%x\n",CMSDK_GPIO0->OUTENABLESET);
+		printf("INTENSET:%x\n",CMSDK_GPIO0->INTENSET);
+		printf("INTENCLR:%x\n",CMSDK_GPIO0->INTENCLR);
+		
+		
+		NVIC_EnableIRQ(PORT01_7_IRQn);
+
+		
+	while (1) {
+		Sleepms(200);
+		
+		lcd_draw_point(120, 120 , WHITE);
+		lcd_clear_screen(RED);
+		
+		
 	}
 
+	
     
 //while(1)
 //{
@@ -535,3 +572,9 @@ int main (void)
 
 //    return TRUE;
 }
+
+void PORT0_7_Handler(void){
+	lcd_clear_screen(BLUE);
+	printf("interupt !\n");
+	CMSDK_gpio_IntClear(CMSDK_GPIO0,7);
+	}

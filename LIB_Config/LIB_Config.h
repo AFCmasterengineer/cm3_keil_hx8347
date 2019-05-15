@@ -60,12 +60,12 @@
 
 
 //#define LCD_RST_PIN    GPIO_Pin_0
-#define LCD_BKL_PIN    			4
-#define LCD_DC_PIN     			1
+#define LCD_BKL_PIN    			8
+#define LCD_DC_PIN     			6
 #define LCD_CS_PIN     			12
-#define LCD_CLK_PIN    			10
-#define LCD_SDO_PIN    			8
-#define LCD_SDI_PIN    			7
+#define LCD_CLK_PIN    			11//10
+#define LCD_SDO_PIN    			14//8
+#define LCD_SDI_PIN    			13//7
 
 //#define __LCD_RST_SET()     GPIO_WriteBit(LCD_RST_GPIO, LCD_RST_PIN, Bit_SET)
 //#define __LCD_RST_CLR()     GPIO_WriteBit(LCD_RST_GPIO, LCD_RST_PIN, Bit_RESET)
