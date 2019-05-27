@@ -43,8 +43,11 @@
 
 
 #include "gpio_m3.h"
-#include "LCD.h"
+//#include "LCD.h"
 #include "LIB_Config.h"
+
+#include "ov5640.h"
+ 	
 // Local variables
 
 // Return status
@@ -380,6 +383,9 @@ int main (void)
 //    int choice;
 //    unsigned int id, fpgaid, apnote, rev, aid;
 //    unsigned int count = 0;
+			U8 xpos = 0;
+			U16 ypos = 0;
+			
 
     // Enable AHB and APB clock
     CMSDK_SYSCON->AHBCLKCFG0SET = 0xF;  // GPIO
@@ -399,6 +405,8 @@ int main (void)
 //    Test_Init();
 
     NVIC_ClearAllPendingIRQ();
+		
+		gpio_m3_out(OV5640_INIT_DONE_GPIO, OV5640_INIT_DONE_PIN, 0);//OV5640  init not done
 
     // Display the program version
     printf ("\n\n\nCortex M3 DesignStart Eval (V2M-MPS2+) Test Suite\n");
@@ -543,12 +551,46 @@ int main (void)
 		
 		NVIC_EnableIRQ(PORT01_7_IRQn);
 
+		while(OV5640_Init())
+		{
+						Sleepms(500);
+						printf("OV5640 Initialization error, please check !\r\n");
+		}          
+		OV5640_Focus_Init(); 	
+		OV5640_Light_Mode(0);	   //set auto
+		OV5640_Color_Saturation(3); //default
+		OV5640_Brightness(4);	//default
+		OV5640_Contrast(3);     //default
+		OV5640_Sharpness(33);	//set auto
+		OV5640_Auto_Focus();
 		
+		//OV5640 init done 
+		OV5640_INIT_DONE
+		
+		rgb565_test();
+		
+		lcd_clear_screen(RED);
 	while (1) {
+		
+		
 		Sleepms(200);
 		
-		lcd_draw_point(120, 120 , WHITE);
-		lcd_clear_screen(RED);
+		if (gpio_m3_in(OV5640_W_DONE_GPIO,OV5640_W_DONE_PIN)==1)
+		{
+			for(ypos = 0;xpos <240;ypos++)
+			{
+				for(xpos = 0;ypos < 320;xpos++)
+				{
+						if(readbit_RAM((4*xpos*ypos)&0x7FFFF)==0){
+								lcd_draw_point(xpos,ypos,BLACK);
+						}
+						else {
+								lcd_draw_point(xpos,ypos,WHITE);
+						}
+				}
+			}
+		
+		}
 		
 		
 	}
