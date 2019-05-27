@@ -94,6 +94,8 @@ void lcd_draw_line(uint16_t hwXpos0, //specify x0 position.
                       uint16_t hwYpos1, //specify y1 position.
                       uint16_t hwColor); //specify the color of the line
 
+void lcd_clear_screen(uint16_t hwColor);
+
 
 
 #endif

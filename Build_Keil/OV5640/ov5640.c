@@ -2,7 +2,7 @@
 #include "ov5640cfg.h"
 #include "ov5640af.h"			 	
 #include "sccb.h"
-
+#include "LCD.h"
 #include <stdio.h>
 
 #include "gpio_m3.h"
@@ -83,19 +83,28 @@ uint8_t OV5640_Init(void)
 { 
 	uint16_t i=0;
 	uint16_t reg;
+	char * char_buff;
         
         
  
 	OV5640_POWER_ON;
+//	gpio_m3_out(OV5640_PWDN_GPIO_Port, OV5640_PWDN_Pin, 1);
         
         Sleepms(30); 
               
 	reg=OV5640_RD_Reg(OV5640_CHIPIDH);	
 	reg<<=8;
 	reg|=OV5640_RD_Reg(OV5640_CHIPIDL);
+	
+	
 	if(reg!=OV5640_ID)
 	{
+		lcd_clear_screen(RED);
+		lcd_display_string(10,10,(const uint8_t *)"Hello, world !",FONT_1608,WHITE);
+		sprintf(char_buff,"ID:%d",reg);
+		lcd_display_string(10,50,(const uint8_t *)char_buff,FONT_1608,WHITE);
 		printf("ID: %d \r\n",reg);
+		
 		return 1;
 	}  
 	OV5640_WR_Reg(0x3103,0X11);	//system clock from pad, bit[1]

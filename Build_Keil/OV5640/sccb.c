@@ -2,12 +2,14 @@
 
 
 
+
 // Use for STM32F746IGT , HCLK = 200MHz
 void delay_6us(void)
 {
         uint16_t  i;
         
         for(i=0;i < 250;i++);
+//	Sleepus(6);
 }
 
 

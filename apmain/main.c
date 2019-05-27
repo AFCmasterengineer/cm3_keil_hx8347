@@ -406,7 +406,7 @@ int main (void)
 
     NVIC_ClearAllPendingIRQ();
 		
-		gpio_m3_out(OV5640_INIT_DONE_GPIO, OV5640_INIT_DONE_PIN, 0);//OV5640  init not done
+//		gpio_m3_out(OV5640_INIT_DONE_GPIO, OV5640_INIT_DONE_PIN, 0);//OV5640  init not done
 
     // Display the program version
     printf ("\n\n\nCortex M3 DesignStart Eval (V2M-MPS2+) Test Suite\n");
@@ -541,12 +541,7 @@ int main (void)
 		
 		CMSDK_gpio_SetIntFallingEdge(CMSDK_GPIO0,7);
 		
-		printf("after SET set");
-		printf("%d\n",gpio_m3_in(CMSDK_GPIO0,7));
-		printf("INTSTATUS:%x\n",CMSDK_GPIO0->INTSTATUS);
-		printf("OUTPUTEN:%x\n",CMSDK_GPIO0->OUTENABLESET);
-		printf("INTENSET:%x\n",CMSDK_GPIO0->INTENSET);
-		printf("INTENCLR:%x\n",CMSDK_GPIO0->INTENCLR);
+
 		
 		
 		NVIC_EnableIRQ(PORT01_7_IRQn);
@@ -555,6 +550,7 @@ int main (void)
 		{
 						Sleepms(500);
 						printf("OV5640 Initialization error, please check !\r\n");
+						
 		}          
 		OV5640_Focus_Init(); 	
 		OV5640_Light_Mode(0);	   //set auto
@@ -563,25 +559,28 @@ int main (void)
 		OV5640_Contrast(3);     //default
 		OV5640_Sharpness(33);	//set auto
 		OV5640_Auto_Focus();
+//		
+
 		
-		//OV5640 init done 
-		OV5640_INIT_DONE
 		
 		rgb565_test();
+	//OV5640 init done 
+		OV5640_INIT_DONE
 		
-		lcd_clear_screen(RED);
+		lcd_clear_screen(GREEN);
 	while (1) {
 		
+		gpio_m3_out(OV5640_READY_GPIO,OV5640_READY_PIN,0);
 		
-		Sleepms(200);
 		
 		if (gpio_m3_in(OV5640_W_DONE_GPIO,OV5640_W_DONE_PIN)==1)
 		{
-			for(ypos = 0;xpos <240;ypos++)
+			gpio_m3_out(OV5640_W_EN_GPIO,OV5640_W_EN_PIN,1);
+			for(xpos = 0;xpos <240;ypos++)
 			{
-				for(xpos = 0;ypos < 320;xpos++)
+				for(ypos = 0;ypos < 320;xpos++)
 				{
-						if(readbit_RAM((4*xpos*ypos)&0x7FFFF)==0){
+						if(readbit_RAM(((2*xpos*640)+2*ypos)&0x7FFFF)==0){
 								lcd_draw_point(xpos,ypos,BLACK);
 						}
 						else {
@@ -589,10 +588,11 @@ int main (void)
 						}
 				}
 			}
-		
+		gpio_m3_out(OV5640_W_EN_GPIO,OV5640_W_EN_PIN,0);       //disable  write enable
+		gpio_m3_out(OV5640_READY_GPIO,OV5640_READY_PIN,1);		 //
 		}
 		
-		
+		Sleepms(200);
 	}
 
 	
