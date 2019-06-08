@@ -36,7 +36,7 @@
 /* Private functions ---------------------------------------------------------*/
 
 
-static void lcd_write_byte(uint8_t chByte, uint8_t chCmd)
+void lcd_write_byte(uint8_t chByte, uint8_t chCmd)
 {
     if (chCmd) {
         __LCD_DC_SET();
@@ -351,6 +351,20 @@ void lcd_draw_rect(uint16_t hwXpos,  //specify x position.
 //phwDevId pointer to device ID of lcd
 void lcd_init(void)
 {
+	
+			MPS2_SSP3->CR1   =   0;                 /* Synchronous serial port disable  */
+			MPS2_SSP3->DMACR =   0;                 /* Disable FIFO DMA                 */
+			MPS2_SSP3->IMSC  =   0;                 /* Mask all FIFO/IRQ interrupts     */
+			MPS2_SSP3->ICR   = ((1ul <<  0) |       /* Clear SSPRORINTR interrupt       */
+													(1ul <<  1) );      /* Clear SSPRTINTR interrupt        */
+			MPS2_SSP3->CR0   = ((7ul <<  0) |       /* 8 bit data size                  */
+													(0ul <<  4) |       /* Motorola frame format            */
+													(1ul <<  6) |       /* CPOL = 0                         */
+													(1ul <<  7) |       /* CPHA = 0                         */
+													(1ul <<  8) );      /* Set serial clock rate            */
+			MPS2_SSP3->CPSR  =  (2ul <<  0);        /* set SSP clk to 6MHz (6.6MHz max) */
+			MPS2_SSP3->CR1   = ((1ul <<  1) |       /* Synchronous serial port enable   */
+													(0ul <<  2) );      /* Device configured as master      */
 //	__LCD_RST_CLR();
 //	delay_ms(100);
 //	__LCD_RST_SET();

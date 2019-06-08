@@ -85,12 +85,13 @@ uint8_t OV5640_Init(void)
 	uint16_t reg;
 	char * char_buff;
         
-        
+  OV5640_POWER_OFF;
+	Sleepms(20);
  
 	OV5640_POWER_ON;
 //	gpio_m3_out(OV5640_PWDN_GPIO_Port, OV5640_PWDN_Pin, 1);
         
-        Sleepms(30); 
+  Sleepms(30); 
               
 	reg=OV5640_RD_Reg(OV5640_CHIPIDH);	
 	reg<<=8;
@@ -99,15 +100,24 @@ uint8_t OV5640_Init(void)
 	
 	if(reg!=OV5640_ID)
 	{
+		reg=0x0000;
+		reg=OV5640_RD_Reg(OV5640_CHIPIDH);	
+		reg<<=8;
+		reg|=OV5640_RD_Reg(OV5640_CHIPIDL);
 		lcd_clear_screen(RED);
 		lcd_display_string(10,10,(const uint8_t *)"Hello, world !",FONT_1608,WHITE);
-		sprintf(char_buff,"ID:%d",reg);
+		sprintf(char_buff,"ID:%x",reg);
 		lcd_display_string(10,50,(const uint8_t *)char_buff,FONT_1608,WHITE);
-		printf("ID: %d \r\n",reg);
+
 		
 		return 1;
 	}  
-	OV5640_WR_Reg(0x3103,0X11);	//system clock from pad, bit[1]
+	sprintf(char_buff,"ID:%x",reg);
+	lcd_display_string(10,20,(const uint8_t *)char_buff,FONT_1608,WHITE);
+
+	
+	OV5640_WR_Reg(0x3103,0X11);	//system clock from pad, bit[1]//0x11
+	
 	OV5640_WR_Reg(0X3008,0X82);	
 	Sleepms(10);
         
@@ -115,14 +125,42 @@ uint8_t OV5640_Init(void)
 	{
 		OV5640_WR_Reg(ov5640_init_reg_tbl[i][0],ov5640_init_reg_tbl[i][1]);
 	} 
+	
+		reg = OV5640_RD_Reg(0x4300);
+		sprintf(char_buff,"0x4300:%x",reg);
+		lcd_display_string(10,40,(const uint8_t *)char_buff,FONT_1608,WHITE);
+	
+	for(i=0;i<(sizeof(OV5640_jpeg_reg_tbl)/4);i++)
+	{
+		OV5640_WR_Reg(OV5640_jpeg_reg_tbl[i][0],OV5640_jpeg_reg_tbl[i][1]);  
+	}  
+	
+		reg = OV5640_RD_Reg(0x4300);
+		sprintf(char_buff,"0x4300:%x",reg);
+		lcd_display_string(10,60,(const uint8_t *)char_buff,FONT_1608,WHITE); 
+		
+	
+	for(i=0;i<(sizeof(ov5640_rgb565_reg_tbl)/4);i++)
+	{
+		OV5640_WR_Reg(ov5640_rgb565_reg_tbl[i][0],ov5640_rgb565_reg_tbl[i][1]); 
+	} 
+		reg = OV5640_RD_Reg(0x4300);
+		sprintf(char_buff,"0x4300:%x",reg);
+		lcd_display_string(10,80,(const uint8_t *)char_buff,FONT_1608,WHITE);
+	
+	OV5640_OutSize_Set(4,0, XSIZE , YSIZE);
+		
+	
+	
+//         Sleepms(50); 
+//        // Test for flash light
+//        OV5640_Flash_Lamp(1);
+//        Sleepms(50); 
+//        OV5640_Flash_Lamp(0);   
 
-         Sleepms(50); 
-        // Test for flash light
-        OV5640_Flash_Lamp(1);
-        Sleepms(50); 
-        OV5640_Flash_Lamp(0);        
+
                
-	return 0x00; 	//ok
+	return 0; 	//ok
 } 
 
 void OV5640_JPEG_Mode(void) 
@@ -447,13 +485,19 @@ U8 readbit_RAM(U32 ADDR)//19bit addr
 		U16 ADDR_LOW16 = ADDR&0xFFFF;
 		U8	ADDR_HIG3  = (ADDR>>16)&0x07;
 	
+		gpio_m3_out(OV5640_R_CLK_GPIO, OV5640_R_CLK_PIN,0);
+	
 		OV5640_RAM_ADDL_GPIO->DATAOUT = ADDR_LOW16;
 		OV5640_RAM_ADDH_GPIO->DATAOUT = (OV5640_RAM_ADDH_GPIO->DATAOUT&0xFFF8)|(ADDR_HIG3);//read 
-	
+
 		OV5640_RAM_ADDL_GPIO->OUTENABLESET = 0xFFFF;
 		OV5640_RAM_ADDH_GPIO->OUTENABLESET = 0x0007;//enable output
+	
+		gpio_m3_out(OV5640_R_CLK_GPIO, OV5640_R_CLK_PIN,1);
 		
 		read_res  = gpio_m3_in(OV5640_DATA_GPIO, OV5640_DATA_PIN);
+	
+		gpio_m3_out(OV5640_R_CLK_GPIO, OV5640_R_CLK_PIN,0);
 	
 		return read_res;
 		
@@ -570,11 +614,11 @@ void rgb565_test(void)
                 jpeg_mode = 0;           
                 curline = 0;
                 
-                OV5640_RGB565_Mode();	
+//                OV5640_RGB565_Mode();	
                 OV5640_OutSize_Set(4,0, XSIZE , YSIZE);	
              
-//                OV5640_WR_Reg(0x3035,0X31); // slow down OV5640 clocks ,adapt to the refresh rate of the LCD 
-//                OV5640_WR_Reg(0x3036,0xE0); 
+                OV5640_WR_Reg(0x3035,0X31); // slow down OV5640 clocks ,adapt to the refresh rate of the LCD 
+                OV5640_WR_Reg(0x3036,0xE0); 
                          
                 /* DCMI DMA DeInit */
 //                HAL_DMA_DeInit(&hdma_dcmi);

@@ -96,6 +96,10 @@ void lcd_draw_line(uint16_t hwXpos0, //specify x0 position.
 
 void lcd_clear_screen(uint16_t hwColor);
 
+void lcd_set_cursor(uint16_t hwXpos, uint16_t hwYpos);
+
+void lcd_write_byte(uint8_t chByte, uint8_t chCmd);
+
 
 
 #endif

@@ -817,6 +817,16 @@
               <FileType>5</FileType>
               <FilePath>.\OV5640\gpio_m3.h</FilePath>
             </File>
+            <File>
+              <FileName>ov5640.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\OV5640\ov5640.c</FilePath>
+            </File>
+            <File>
+              <FileName>sccb.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\OV5640\sccb.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

@@ -111,7 +111,7 @@ const uint16_t ov5640_rgb565_reg_tbl[][2]=
 
 
 
-        0x4300, 0X6F,
+  0x4300, 0X61, //0x6F     felix
 	0X501F, 0x01,
 	// 1280x800, 15fps
 	// input clock 24Mhz, PCLK 42Mhz
@@ -383,7 +383,8 @@ const uint16_t ov5640_init_reg_tbl[][2]=
 	0x5025, 0x00, 
 	0x3008, 0x02, // wake up from standby, bit[6]
 	
-	0x4740, 0X21, //VSYNC active HIGH
+	0x4740, 0X20, //VSYNC active HIGH
+	0x4300,0x61,
 };  
 
 #endif

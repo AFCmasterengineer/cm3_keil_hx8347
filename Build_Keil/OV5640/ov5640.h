@@ -17,6 +17,7 @@
 #define WAKE_UP_KEY_GPIO_Port		CMSDK_GPIO0
 #define WAKE_UP_KEY_Pin					(U8)5
 
+
 #define OV5640_RAM_ADDL_GPIO			CMSDK_GPIO1			//LOW 16bit addr of ram
 #define OV5640_RAM_ADDH_GPIO			CMSDK_GPIO2			//HIGH 3bit addr of ram
 
@@ -26,18 +27,20 @@
 #define OV5640_W_DONE_GPIO 			CMSDK_GPIO2
 #define OV5640_READY_GPIO				CMSDK_GPIO2
 #define OV5640_W_EN_GPIO				CMSDK_GPIO2
+#define OV5640_R_CLK_GPIO				CMSDK_GPIO2
 
 
-#define OV5640_INIT_DONE_PIN		5							//GPIO2-5
-#define OV5640_DATA_PIN					6							//GPIO2_6
-#define OV5640_W_DONE_PIN				7							//GPIO2-7
-#define OV5640_READY_PIN				8							//GPIO2-8
-#define OV5640_W_EN_PIN					9							//GPIO2-8
+#define OV5640_INIT_DONE_PIN		4							//GPIO2-5  EXP[36]
+#define OV5640_DATA_PIN					5							//GPIO2_6
+#define OV5640_W_DONE_PIN				6							//GPIO2-7
+#define OV5640_READY_PIN				7							//GPIO2-8  EXP[39]
+#define OV5640_W_EN_PIN					8							//GPIO2-9
+#define OV5640_R_CLK_PIN				9							
 
 #define   JOYSTICK_KEY_PRESS     gpio_m3_in(JOYSTICK_KEY_GPIO_Port, JOYSTICK_KEY_Pin) == 0
 #define   WAKE_UP_KEY_PRESS      gpio_m3_in(WAKE_UP_KEY_GPIO_Port, WAKE_UP_KEY_Pin) == 1
 #define   OV5640_POWER_ON        gpio_m3_out(OV5640_PWDN_GPIO_Port, OV5640_PWDN_Pin, 0)
-
+#define   OV5640_POWER_OFF     gpio_m3_out(OV5640_PWDN_GPIO_Port, OV5640_PWDN_Pin, 1)
 #define		OV5640_INIT_DONE				gpio_m3_out(OV5640_INIT_DONE_GPIO, OV5640_INIT_DONE_PIN, 1);
 
 

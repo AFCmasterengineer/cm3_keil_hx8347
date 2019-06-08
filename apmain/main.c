@@ -47,8 +47,15 @@
 #include "LIB_Config.h"
 
 #include "ov5640.h"
+#include "LCD.h"
+
  	
 // Local variables
+
+
+//  state machine 
+char current_state = 0;
+char next_state = 0;
 
 // Return status
 
@@ -291,92 +298,92 @@ void Run_All_Tests (void)
     return;
 }
 
-int Select_Test (void)
-{
-    unsigned int choice;
-    char         buffer[8];
+//int Select_Test (void)
+//{
+//    unsigned int choice;
+//    char         buffer[8];
 
-    if(RunAllTests == TRUE) {
-        printf("\nSelect the test you wish to run. (X - Exit)\n");
-        do {
-            choice = 0;
-            printf ("\nChoice: ");
-            GetLine (buffer, sizeof(buffer));
+//    if(RunAllTests == TRUE) {
+//        printf("\nSelect the test you wish to run. (X - Exit)\n");
+//        do {
+//            choice = 0;
+//            printf ("\nChoice: ");
+//            GetLine (buffer, sizeof(buffer));
 
-            if(toupper(buffer[0]) == 'X')
-                return 0;
+//            if(toupper(buffer[0]) == 'X')
+//                return 0;
 
-            sscanf (buffer, "%d", &choice);
-        }
-        while (!choice  || (choice > NO_OF_PROD_TESTS + 2));
+//            sscanf (buffer, "%d", &choice);
+//        }
+//        while (!choice  || (choice > NO_OF_PROD_TESTS + 2));
 
-    }
-    else {
-        printf("\nSelect the test you wish to run. (X - Exit)\n");
-        do {
-            choice = 0;
-            printf ("\nChoice: ");
-           	GetLine (buffer, sizeof(buffer));
+//    }
+//    else {
+//        printf("\nSelect the test you wish to run. (X - Exit)\n");
+//        do {
+//            choice = 0;
+//            printf ("\nChoice: ");
+//           	GetLine (buffer, sizeof(buffer));
 
-            if (toupper(buffer[0]) == 'X')
-                return 0;
+//            if (toupper(buffer[0]) == 'X')
+//                return 0;
 
-            sscanf (buffer, "%d", &choice);
-        }
-        while (!choice  || (choice > (NO_OF_TESTS + 1)));
+//            sscanf (buffer, "%d", &choice);
+//        }
+//        while (!choice  || (choice > (NO_OF_TESTS + 1)));
 
 
-    }
-    return choice;
-}
+//    }
+//    return choice;
+//}
 
-// Display Colour bars on the VGA screen
-static void VGA_Test (void)
-{
-    unsigned int x, y, col, pxl, fpxl;
+//// Display Colour bars on the VGA screen
+//static void VGA_Test (void)
+//{
+//    unsigned int x, y, col, pxl, fpxl;
 
-    // Display Colour bars on the VGA screen
-    for (y = 0; y < 128; y++)
-    {
-      for (x = 0; x < (128 * 3); x++)
-      {
-    	  // Colour 0x0000RGB (4 bit colour)
-    	  if (x < 128)
-    		  col = ((x >> 3) & 0xF);
-    	  else if (x < 256)
-    		  col = ((x >> 3) & 0xF) << 4;
-    	  else
-    		  col = ((x >> 3) & 0xF) << 8;
+//    // Display Colour bars on the VGA screen
+//    for (y = 0; y < 128; y++)
+//    {
+//      for (x = 0; x < (128 * 3); x++)
+//      {
+//    	  // Colour 0x0000RGB (4 bit colour)
+//    	  if (x < 128)
+//    		  col = ((x >> 3) & 0xF);
+//    	  else if (x < 256)
+//    		  col = ((x >> 3) & 0xF) << 4;
+//    	  else
+//    		  col = ((x >> 3) & 0xF) << 8;
 
-    	  // Pixel position
-    	  pxl = (x * 4) + (y * 512 * 4);
+//    	  // Pixel position
+//    	  pxl = (x * 4) + (y * 512 * 4);
 
-    	  // Write to screen buffer
-    	  *((unsigned int *)(MPS2_VGA_BUFFER + pxl)) = col;
-      }
-    }
+//    	  // Write to screen buffer
+//    	  *((unsigned int *)(MPS2_VGA_BUFFER + pxl)) = col;
+//      }
+//    }
 
-    // Display test chart face on the VGA screen
-    for (y = 0; y < 128; y++)
-    {
-      for (x = 384; x < 512; x++)
-      {
-    	  // Flyer pixel position
-    	  fpxl = (x - 224) + ((y + 109) * 320);
+//    // Display test chart face on the VGA screen
+//    for (y = 0; y < 128; y++)
+//    {
+//      for (x = 384; x < 512; x++)
+//      {
+//    	  // Flyer pixel position
+//    	  fpxl = (x - 224) + ((y + 109) * 320);
 
-    	  // Colour 0x0000RGB (4 bit colour)
-    	  col  = (flyerData[fpxl] >> 1) & 0x000F;
-    	  col |= (flyerData[fpxl] >> 3) & 0x00F0;
-    	  col |= (flyerData[fpxl] >> 4) & 0x0F00;
+//    	  // Colour 0x0000RGB (4 bit colour)
+//    	  col  = (flyerData[fpxl] >> 1) & 0x000F;
+//    	  col |= (flyerData[fpxl] >> 3) & 0x00F0;
+//    	  col |= (flyerData[fpxl] >> 4) & 0x0F00;
 
-    	  // Screen pixel position
-    	  pxl = (x * 4) + (y * 512 * 4);
+//    	  // Screen pixel position
+//    	  pxl = (x * 4) + (y * 512 * 4);
 
-    	  // Write to screen buffer
-    	  *((unsigned int *)(MPS2_VGA_BUFFER + pxl)) = col;
-      }
-    }
-}
+//    	  // Write to screen buffer
+//    	  *((unsigned int *)(MPS2_VGA_BUFFER + pxl)) = col;
+//      }
+//    }
+//}
 
 int main (void)
 {
@@ -385,7 +392,11 @@ int main (void)
 //    unsigned int count = 0;
 			U8 xpos = 0;
 			U16 ypos = 0;
+	
+			uint16_t reg;
+			char * char_buff;
 			
+			Sleepms(500);
 
     // Enable AHB and APB clock
     CMSDK_SYSCON->AHBCLKCFG0SET = 0xF;  // GPIO
@@ -499,36 +510,23 @@ int main (void)
 //        }
 //    }
 
-		  MPS2_SSP3->CR1   =   0;                 /* Synchronous serial port disable  */
-			MPS2_SSP3->DMACR =   0;                 /* Disable FIFO DMA                 */
-			MPS2_SSP3->IMSC  =   0;                 /* Mask all FIFO/IRQ interrupts     */
-			MPS2_SSP3->ICR   = ((1ul <<  0) |       /* Clear SSPRORINTR interrupt       */
-													(1ul <<  1) );      /* Clear SSPRTINTR interrupt        */
-			MPS2_SSP3->CR0   = ((7ul <<  0) |       /* 8 bit data size                  */
-													(0ul <<  4) |       /* Motorola frame format            */
-													(1ul <<  6) |       /* CPOL = 0                         */
-													(1ul <<  7) |       /* CPHA = 0                         */
-													(1ul <<  8) );      /* Set serial clock rate            */
-			MPS2_SSP3->CPSR  =  (2ul <<  0);        /* set SSP clk to 6MHz (6.6MHz max) */
-			MPS2_SSP3->CR1   = ((1ul <<  1) |       /* Synchronous serial port enable   */
-													(0ul <<  2) );      /* Device configured as master      */
+//		  MPS2_SSP3->CR1   =   0;                 /* Synchronous serial port disable  */
+//			MPS2_SSP3->DMACR =   0;                 /* Disable FIFO DMA                 */
+//			MPS2_SSP3->IMSC  =   0;                 /* Mask all FIFO/IRQ interrupts     */
+//			MPS2_SSP3->ICR   = ((1ul <<  0) |       /* Clear SSPRORINTR interrupt       */
+//													(1ul <<  1) );      /* Clear SSPRTINTR interrupt        */
+//			MPS2_SSP3->CR0   = ((7ul <<  0) |       /* 8 bit data size                  */
+//													(0ul <<  4) |       /* Motorola frame format            */
+//													(1ul <<  6) |       /* CPOL = 0                         */
+//													(1ul <<  7) |       /* CPHA = 0                         */
+//													(1ul <<  8) );      /* Set serial clock rate            */
+//			MPS2_SSP3->CPSR  =  (2ul <<  0);        /* set SSP clk to 6MHz (6.6MHz max) */
+//			MPS2_SSP3->CR1   = ((1ul <<  1) |       /* Synchronous serial port enable   */
+//													(0ul <<  2) );      /* Device configured as master      */
 
-		lcd_init();
+			lcd_init();
 		
-	
-		printf("\nProgram terminated.\n");
-		lcd_draw_rect(30, 40, 150, 100, RED);
-    lcd_draw_circle(120, 160, 50, BLUE);
-    lcd_draw_line(30, 40, 180, 140, RED);
-    
-    lcd_draw_line(30, 220, 210, 240, RED);
-    lcd_draw_line(30, 220, 120, 280, RED);
-    lcd_draw_line(120, 280, 210, 240, RED);
-		
-		
-		
-		//
-		//
+
 		//set interupt of GPIO7
 		CMSDK_GPIO0->INTENCLR=0xFFFF;
 		CMSDK_gpio_ClrOutEnable(CMSDK_GPIO0,7);
@@ -542,54 +540,132 @@ int main (void)
 		CMSDK_gpio_SetIntFallingEdge(CMSDK_GPIO0,7);
 		
 
-		
+		gpio_m3_out(OV5640_INIT_DONE_GPIO, OV5640_INIT_DONE_PIN, 0);
 		
 		NVIC_EnableIRQ(PORT01_7_IRQn);
 
 		while(OV5640_Init())
 		{
 						Sleepms(500);
-						printf("OV5640 Initialization error, please check !\r\n");
+//						printf("OV5640 Initialization error, please check !\r\n");
 						
-		}          
-		OV5640_Focus_Init(); 	
-		OV5640_Light_Mode(0);	   //set auto
-		OV5640_Color_Saturation(3); //default
-		OV5640_Brightness(4);	//default
-		OV5640_Contrast(3);     //default
-		OV5640_Sharpness(33);	//set auto
-		OV5640_Auto_Focus();
-//		
+		}      
+
+		reg = OV5640_RD_Reg(0x4300);
+		sprintf(char_buff,"0x4300:%x",reg);
+		lcd_display_string(10,100,(const uint8_t *)char_buff,FONT_1608,WHITE); 
+		
+		
 
 		
 		
+//		OV5640_JPEG_Mode();		//JPEG
+		
+		
+		 
+//		OV5640_RGB565_Mode();
+//		OV5640_Focus_Init(); 
+
+//		
+//		
+//					
+//		OV5640_Light_Mode(0);	   //set auto
+//		OV5640_Color_Saturation(3); //default
+//		OV5640_Brightness(4);	//default
+//		OV5640_Contrast(3);     //default
+//		OV5640_Sharpness(33);	//set auto
+//		OV5640_Auto_Focus();
+		
+
+//		
+
+		gpio_m3_out(OV5640_INIT_DONE_GPIO, OV5640_INIT_DONE_PIN, 0);
+		
+
+		
+//		
 		rgb565_test();
-	//OV5640 init done 
+		
+		Sleepms(50);
+		reg = OV5640_RD_Reg(0x4300);
+		sprintf(char_buff,"0x4300:%x",reg);
+		lcd_display_string(10,120,(const uint8_t *)char_buff,FONT_1608,WHITE);
+//		OV5640 init done 
+//while(1){
+
+		
+//		Sleepms(50);
+//	lcd_clear_screen(BLUE);
+//}
+		
 		OV5640_INIT_DONE
+
 		
 		lcd_clear_screen(GREEN);
+		gpio_m3_out(OV5640_READY_GPIO,OV5640_READY_PIN,1);
 	while (1) {
 		
-		gpio_m3_out(OV5640_READY_GPIO,OV5640_READY_PIN,0);
+		gpio_m3_out(OV5640_READY_GPIO,OV5640_READY_PIN,1);
 		
 		
 		if (gpio_m3_in(OV5640_W_DONE_GPIO,OV5640_W_DONE_PIN)==1)
 		{
+			gpio_m3_out(OV5640_READY_GPIO,OV5640_READY_PIN,0);		
+				
+			switch(current_state){
+				case 0x00:
+										
+										break;
+				case 0x01:
+										break;
+				case 0x02:
+										break;
+				case 0x03:
+										break;
+				case 0x04:
+										break;
+			
+			}
+			
+
+			
 			gpio_m3_out(OV5640_W_EN_GPIO,OV5640_W_EN_PIN,1);
-			for(xpos = 0;xpos <240;ypos++)
+			
+			//draw screen without set cusor
+			lcd_set_cursor(0, 0);
+			lcd_write_byte(0x22, LCD_CMD);
+			__LCD_DC_SET();
+			__LCD_CS_CLR();
+			
+			for(ypos = 0;ypos <320;ypos++)
 			{
-				for(ypos = 0;ypos < 320;xpos++)
+				for(xpos = 0;xpos < 240;xpos++)
 				{
+						
 						if(readbit_RAM(((2*xpos*640)+2*ypos)&0x7FFFF)==0){
-								lcd_draw_point(xpos,ypos,BLACK);
+//								lcd_draw_point(xpos,ypos,BLACK);
+									__LCD_WRITE_BYTE(0x00);
+									__LCD_WRITE_BYTE(0x00);
 						}
 						else {
-								lcd_draw_point(xpos,ypos,WHITE);
+//								lcd_draw_point(xpos,ypos,WHITE);
+								__LCD_WRITE_BYTE(0xFF);
+								__LCD_WRITE_BYTE(0xFF);
 						}
+						      //disable  write enable
+						
 				}
 			}
-		gpio_m3_out(OV5640_W_EN_GPIO,OV5640_W_EN_PIN,0);       //disable  write enable
-		gpio_m3_out(OV5640_READY_GPIO,OV5640_READY_PIN,1);		 //
+			__LCD_CS_SET();
+			
+			
+			//end of  draw screen without set cusor
+			
+			
+			gpio_m3_out(OV5640_READY_GPIO,OV5640_READY_PIN,1);
+		
+//			break;
+			gpio_m3_out(OV5640_W_EN_GPIO,OV5640_W_EN_PIN,0); 
 		}
 		
 		Sleepms(200);
@@ -616,7 +692,7 @@ int main (void)
 }
 
 void PORT0_7_Handler(void){
-	lcd_clear_screen(BLUE);
-	printf("interupt !\n");
-	CMSDK_gpio_IntClear(CMSDK_GPIO0,7);
+//	lcd_clear_screen(BLUE);
+//	printf("interupt !\n");
+//	CMSDK_gpio_IntClear(CMSDK_GPIO0,7);
 	}
