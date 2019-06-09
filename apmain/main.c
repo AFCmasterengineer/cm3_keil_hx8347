@@ -532,7 +532,7 @@ int main (void)
 		CMSDK_gpio_ClrOutEnable(CMSDK_GPIO0,7);
 
 ////		CMSDK_gpio_SetIntFallingEdge(CMSDK_GPIO0,7);
-		CMSDK_gpio_SetIntHighLevel(CMSDK_GPIO0,7);
+//		CMSDK_gpio_SetIntHighLevel(CMSDK_GPIO0,7);
 //		
 		CMSDK_GPIO0->INTENSET = (1 << 7);
 //		CMSDK_GPIO0->INTENCLR = (1 << 7);
@@ -544,12 +544,12 @@ int main (void)
 		
 		NVIC_EnableIRQ(PORT01_7_IRQn);
 
-		while(OV5640_Init())
-		{
-						Sleepms(500);
-//						printf("OV5640 Initialization error, please check !\r\n");
-						
-		}      
+//		while(OV5640_Init())
+//		{
+//						Sleepms(500);
+////						printf("OV5640 Initialization error, please check !\r\n");
+//						
+//		}      
 
 		reg = OV5640_RD_Reg(0x4300);
 		sprintf(char_buff,"0x4300:%x",reg);
@@ -612,20 +612,20 @@ int main (void)
 		{
 			gpio_m3_out(OV5640_READY_GPIO,OV5640_READY_PIN,0);		
 				
-			switch(current_state){
-				case 0x00:
-										
-										break;
-				case 0x01:
-										break;
-				case 0x02:
-										break;
-				case 0x03:
-										break;
-				case 0x04:
-										break;
-			
-			}
+//			switch(current_state){
+//				case 0x00:
+//										
+//										break;
+//				case 0x01:
+//										break;
+//				case 0x02:
+//										break;
+//				case 0x03:
+//										break;
+//				case 0x04:
+//										break;
+//			
+//			}
 			
 
 			
@@ -694,5 +694,5 @@ int main (void)
 void PORT0_7_Handler(void){
 //	lcd_clear_screen(BLUE);
 //	printf("interupt !\n");
-//	CMSDK_gpio_IntClear(CMSDK_GPIO0,7);
+	CMSDK_gpio_IntClear(CMSDK_GPIO0,7);
 	}
